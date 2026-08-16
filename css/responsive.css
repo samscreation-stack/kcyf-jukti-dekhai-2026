@@ -1,0 +1,2054 @@
+/* =========================================================
+   KCYF যুক্তি দেখাই — PUBLIC SPEAKING COMPETITION 2026
+   RESPONSIVE CSS
+   ========================================================= */
+
+
+/* =========================================================
+   01. LARGE DESKTOP
+   1440px+
+   ========================================================= */
+
+@media (min-width: 1440px) {
+
+    .container {
+        max-width: 1280px;
+    }
+
+    .hero-content {
+        max-width: 1180px;
+    }
+
+    .section-title {
+        max-width: 850px;
+    }
+
+    .about-grid,
+    .format-grid,
+    .why-grid {
+        gap: 48px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   02. LAPTOP / SMALL DESKTOP
+   1200px — 1439px
+   ========================================================= */
+
+@media (max-width: 1439px) {
+
+    .container {
+        width: min(92%, 1180px);
+    }
+
+    .nav-links {
+        gap: 24px;
+    }
+
+    .hero-content {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   03. TABLET LANDSCAPE
+   1024px — 1199px
+   ========================================================= */
+
+@media (max-width: 1199px) {
+
+    /* -----------------------------------------------------
+       GLOBAL
+       ----------------------------------------------------- */
+
+    .container {
+        width: min(92%, 1050px);
+    }
+
+
+    .section {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+
+
+    /* -----------------------------------------------------
+       NAVIGATION
+       ----------------------------------------------------- */
+
+    .nav-links {
+        gap: 18px;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+    }
+
+    .nav-cta {
+        padding: 11px 18px;
+    }
+
+
+    /* -----------------------------------------------------
+       HERO
+       ----------------------------------------------------- */
+
+    .hero {
+        min-height: 680px;
+    }
+
+    .hero-content {
+        max-width: 950px;
+    }
+
+    .hero-title {
+        font-size: clamp(52px, 6vw, 78px);
+    }
+
+
+    /* -----------------------------------------------------
+       ABOUT
+       ----------------------------------------------------- */
+
+    .about-grid {
+        gap: 40px;
+    }
+
+
+    /* -----------------------------------------------------
+       FORMAT
+       ----------------------------------------------------- */
+
+    .format-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       WHY PARTICIPATE
+       ----------------------------------------------------- */
+
+    .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       TIMELINE
+       ----------------------------------------------------- */
+
+    .timeline {
+        max-width: 900px;
+    }
+
+
+    /* -----------------------------------------------------
+       JUDGING
+       ----------------------------------------------------- */
+
+    .judging-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       PRIZES
+       ----------------------------------------------------- */
+
+    .prizes-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       WINNERS
+       ----------------------------------------------------- */
+
+    .winners-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       GALLERY
+       ----------------------------------------------------- */
+
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    /* =========================================================
+   SPONSORS & PARTNERS — RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .sponsors-logo-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .supporting-sponsors-grid {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .sponsors-section {
+
+        padding:
+            85px 0;
+
+    }
+
+
+    .sponsors-container {
+
+        width:
+            min(
+                calc(100% - 30px),
+                650px
+            );
+
+    }
+
+
+    .title-sponsor-card {
+
+        flex-direction:
+            column;
+
+        gap:
+            20px;
+
+        text-align:
+            center;
+
+    }
+
+
+    .sponsor-cta {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .sponsors-container {
+
+        width:
+            92%;
+
+    }
+
+
+    .sponsors-logo-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .supporting-sponsors-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .sponsor-logo-wrap {
+
+        width:
+            180px;
+
+    }
+
+
+    .sponsor-cta {
+
+        padding:
+            25px;
+
+    }
+
+}
+
+    /* =========================================================
+   OFFICIAL BANNER SLIDER — RESPONSIVE
+   ========================================================= */
+
+
+@media (max-width: 767px) {
+
+    .official-banners-section {
+
+        padding:
+            75px 0;
+
+    }
+
+
+    .banner-container {
+
+        width:
+            min(
+                calc(100% - 30px),
+                650px
+            );
+
+    }
+
+
+    .banner-section-header {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+        gap:
+            18px;
+
+        margin-bottom:
+            30px;
+
+    }
+
+
+    .banner-section-header h2 {
+
+        font-size:
+            42px;
+
+    }
+
+
+    .banner-section-header p {
+
+        max-width:
+            100%;
+
+    }
+
+
+    .official-banner-slider {
+
+        padding:
+            10px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    .banner-track {
+
+        border-radius:
+            13px;
+
+    }
+
+
+    .banner-control {
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+        font-size:
+            15px;
+
+    }
+
+
+    .banner-prev {
+
+        left:
+            18px;
+
+    }
+
+
+    .banner-next {
+
+        right:
+            18px;
+
+    }
+
+
+    .banner-slider-info {
+
+        margin-top:
+            13px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .official-banners-section {
+
+        padding:
+            60px 0;
+
+    }
+
+
+    .banner-container {
+
+        width:
+            92%;
+
+    }
+
+
+    .banner-section-header h2 {
+
+        font-size:
+            36px;
+
+    }
+
+
+    .official-banner-slider {
+
+        padding:
+            7px;
+
+        border-radius:
+            16px;
+
+    }
+
+
+    .banner-track {
+
+        border-radius:
+            10px;
+
+    }
+
+
+    .banner-control {
+
+        width:
+            34px;
+
+        height:
+            34px;
+
+    }
+
+
+    .banner-prev {
+
+        left:
+            12px;
+
+    }
+
+
+    .banner-next {
+
+        right:
+            12px;
+
+    }
+
+
+    .banner-current,
+    .banner-total {
+
+        font-size:
+            9px;
+
+    }
+
+}
+
+    /* -----------------------------------------------------
+       ABOUT
+       ----------------------------------------------------- */
+
+    .about-grid {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+    }
+
+    .about-content {
+        max-width: 760px;
+    }
+
+
+    /* -----------------------------------------------------
+       FORMAT / CATEGORIES
+       ----------------------------------------------------- */
+
+    .format-grid {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 20px;
+    }
+
+
+    /* -----------------------------------------------------
+       WHY PARTICIPATE
+       ----------------------------------------------------- */
+
+    .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       HOW IT WORKS
+       ----------------------------------------------------- */
+
+    .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       TIMELINE
+       ----------------------------------------------------- */
+
+    .timeline {
+        padding-left: 25px;
+    }
+
+
+    /* -----------------------------------------------------
+       JUDGING CRITERIA
+       ----------------------------------------------------- */
+
+    .judging-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       PRIZES
+       ----------------------------------------------------- */
+
+    .prizes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       WINNERS
+       ----------------------------------------------------- */
+
+    .winners-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       GALLERY
+       ----------------------------------------------------- */
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 16px;
+    }
+
+
+    /* -----------------------------------------------------
+       SPONSORS
+       ----------------------------------------------------- */
+
+    .sponsors-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    /* -----------------------------------------------------
+       FAQ
+       ----------------------------------------------------- */
+
+    .faq-list {
+        max-width: 850px;
+    }
+
+
+    /* -----------------------------------------------------
+       REGISTRATION
+       ----------------------------------------------------- */
+
+    .registration-content {
+        max-width: 800px;
+    }
+
+}
+
+
+/* =========================================================
+   05. LARGE MOBILE
+   576px — 767px
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    /* -----------------------------------------------------
+       GLOBAL
+       ----------------------------------------------------- */
+
+    .container {
+        width: min(92%, 650px);
+    }
+
+    .section {
+        padding-top: 68px;
+        padding-bottom: 68px;
+    }
+
+    .section-header {
+        margin-bottom: 38px;
+    }
+
+    .section-title {
+        font-size: clamp(30px, 7vw, 44px);
+
+        line-height: 1.12;
+    }
+
+    .section-description {
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+
+    /* -----------------------------------------------------
+       HEADER
+       ----------------------------------------------------- */
+
+    .site-header {
+        padding: 10px 0;
+    }
+
+    .nav-inner {
+        min-height: 54px;
+    }
+
+    .brand-logo {
+        max-width: 145px;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE NAV
+       ----------------------------------------------------- */
+
+    .mobile-nav {
+        top: 68px;
+
+        left: 12px;
+        right: 12px;
+
+        border-radius: 20px;
+    }
+
+
+    /* =========================================================
+   HERO — RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1023px) {
+
+    .hero-section {
+
+        padding:
+            135px 0 85px;
+
+    }
+
+
+    .hero-container {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            50px;
+
+    }
+
+
+    .hero-content {
+
+        max-width:
+            760px;
+
+        margin-inline:
+            auto;
+
+        text-align:
+            center;
+
+    }
+
+
+    .hero-eyebrow {
+
+        justify-content:
+            center;
+
+    }
+
+
+    .hero-description {
+
+        margin-inline:
+            auto;
+
+    }
+
+
+    .hero-actions {
+
+        justify-content:
+            center;
+
+    }
+
+
+    .hero-facts {
+
+        justify-content:
+            center;
+
+    }
+
+
+    .hero-logo-area {
+
+        height:
+            420px;
+
+    }
+
+
+    .hero-logo-platform {
+
+        width:
+            320px;
+
+        height:
+            320px;
+
+    }
+
+
+    .hero-logo-frame {
+
+        width:
+            205px;
+
+        height:
+            205px;
+
+    }
+
+
+    .hero-kcyf-logo {
+
+        width:
+            155px;
+
+    }
+
+
+    .hero-scroll-indicator {
+
+        display:
+            none;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .hero-section {
+
+        min-height:
+            auto;
+
+        padding:
+            120px 0 65px;
+
+    }
+
+
+    .hero-container {
+
+        width:
+            min(
+                calc(100% - 30px),
+                650px
+            );
+
+        gap:
+            45px;
+
+    }
+
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                62px,
+                18vw,
+                92px
+            );
+
+    }
+
+
+    .hero-subtitle {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .hero-tagline {
+
+        font-size:
+            15px;
+
+    }
+
+
+    .hero-description {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .hero-actions {
+
+        flex-direction:
+            column;
+
+        width:
+            100%;
+
+    }
+
+
+    .hero-primary-btn,
+    .hero-secondary-btn {
+
+        width:
+            100%;
+
+    }
+
+
+    .hero-facts {
+
+        gap:
+            13px;
+
+        margin-top:
+            38px;
+
+    }
+
+
+    .hero-fact strong {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .hero-fact span {
+
+        font-size:
+            7px;
+
+    }
+
+
+    .hero-logo-area {
+
+        height:
+            340px;
+
+    }
+
+
+    .hero-logo-platform {
+
+        width:
+            260px;
+
+        height:
+            260px;
+
+    }
+
+
+    .hero-logo-ring {
+
+        inset:
+            16px;
+
+    }
+
+
+    .hero-logo-frame {
+
+        width:
+            170px;
+
+        height:
+            170px;
+
+    }
+
+
+    .hero-kcyf-logo {
+
+        width:
+            130px;
+
+    }
+
+
+    .hero-logo-label {
+
+        right:
+            3%;
+
+        bottom:
+            4%;
+
+        font-size:
+            7px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .hero-section {
+
+        padding:
+            110px 0 55px;
+
+    }
+
+
+    .hero-container {
+
+        width:
+            92%;
+
+    }
+
+
+    .hero-title {
+
+        font-size:
+            62px;
+
+    }
+
+
+    .hero-logo-area {
+
+        height:
+            300px;
+
+    }
+
+
+    .hero-logo-platform {
+
+        width:
+            225px;
+
+        height:
+            225px;
+
+    }
+
+
+    .hero-logo-frame {
+
+        width:
+            145px;
+
+        height:
+            145px;
+
+    }
+
+
+    .hero-kcyf-logo {
+
+        width:
+            110px;
+
+    }
+
+
+    .hero-logo-label {
+
+        right:
+            0;
+
+    }
+
+}
+
+
+    /* -----------------------------------------------------
+       OFFICIAL BANNER
+       ----------------------------------------------------- */
+
+    .banner-section {
+        padding-top: 55px;
+    }
+
+    .banner-slider {
+        border-radius: 18px;
+    }
+
+    .banner-slide img {
+        aspect-ratio: 4 / 3;
+
+       object-fit: contain;
+    }
+
+    .slider-prev,
+    .slider-next {
+        width: 38px;
+        height: 38px;
+
+        font-size: 15px;
+    }
+
+    .slider-prev {
+        left: 10px;
+    }
+
+    .slider-next {
+        right: 10px;
+    }
+
+    .slider-dots {
+        bottom: 12px;
+    }
+
+    .slider-dot {
+        width: 7px;
+        height: 7px;
+    }
+
+
+    /* -----------------------------------------------------
+       ABOUT
+       ----------------------------------------------------- */
+
+    .about-grid {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+    }
+
+    .about-card {
+        padding: 25px 22px;
+    }
+
+
+    /* -----------------------------------------------------
+       FORMAT / THREE CATEGORIES
+       ----------------------------------------------------- */
+
+    .format-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .format-card {
+        padding: 25px 22px;
+    }
+
+
+    /* -----------------------------------------------------
+       WHY PARTICIPATE
+       ----------------------------------------------------- */
+
+    .why-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .why-card {
+        padding: 24px 21px;
+    }
+
+
+    /* -----------------------------------------------------
+       PROCESS
+       ----------------------------------------------------- */
+
+    .process-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+
+    /* -----------------------------------------------------
+       TIMELINE
+       ----------------------------------------------------- */
+
+    .timeline {
+        padding-left: 20px;
+    }
+
+    .timeline-item {
+        padding-left: 25px;
+    }
+
+    .timeline-number {
+        width: 32px;
+        height: 32px;
+
+        left: -16px;
+    }
+
+
+    /* -----------------------------------------------------
+       JUDGING
+       ----------------------------------------------------- */
+
+    .judging-grid {
+        grid-template-columns: 1fr;
+
+        gap: 13px;
+    }
+
+    .judging-card {
+        padding: 22px;
+    }
+
+
+    /* -----------------------------------------------------
+       PRIZES
+       ----------------------------------------------------- */
+
+    .prizes-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .prize-card {
+        padding: 28px 22px;
+    }
+
+
+    /* -----------------------------------------------------
+       WINNERS
+       ----------------------------------------------------- */
+
+    .winners-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .winner-card {
+        max-width: 500px;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    /* -----------------------------------------------------
+       GALLERY
+       ----------------------------------------------------- */
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 10px;
+    }
+
+    .gallery-item {
+        border-radius: 12px;
+    }
+
+
+    /* -----------------------------------------------------
+       GALLERY LIGHTBOX
+       ----------------------------------------------------- */
+
+    .gallery-lightbox {
+        padding: 15px;
+    }
+
+    .lightbox-image {
+        max-width: 95vw;
+
+        max-height: 78vh;
+    }
+
+    .lightbox-close {
+        top: 12px;
+        right: 12px;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+        width: 38px;
+        height: 38px;
+    }
+
+
+    /* -----------------------------------------------------
+       SPONSORS
+       ----------------------------------------------------- */
+
+    .sponsors-grid {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 15px;
+    }
+
+    .sponsor-card {
+        min-height: 95px;
+
+        padding: 18px;
+    }
+
+
+    /* -----------------------------------------------------
+       FAQ
+       ----------------------------------------------------- */
+
+    .faq-question {
+        padding: 19px 18px;
+
+        font-size: 15px;
+    }
+
+    .faq-answer {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+
+    /* -----------------------------------------------------
+       REGISTRATION
+       ----------------------------------------------------- */
+
+    .registration-content {
+        width: 100%;
+    }
+
+    .registration-card {
+        padding: 30px 22px;
+
+        border-radius: 22px;
+    }
+
+
+    
+
+}
+
+
+/* =========================================================
+   06. SMALL MOBILE
+   BELOW 576px
+   ========================================================= */
+
+@media (max-width: 575px) {
+
+    /* -----------------------------------------------------
+       GLOBAL
+       ----------------------------------------------------- */
+
+    .container {
+        width: 91%;
+    }
+
+    .section {
+        padding-top: 58px;
+        padding-bottom: 58px;
+    }
+
+
+    /* -----------------------------------------------------
+       HEADER
+       ----------------------------------------------------- */
+
+    .brand-logo {
+        max-width: 125px;
+    }
+
+
+    /* -----------------------------------------------------
+       HERO
+       ----------------------------------------------------- */
+
+    .hero {
+        min-height: 590px;
+    }
+
+    .hero-title {
+        font-size: clamp(36px, 12vw, 50px);
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+
+    /* -----------------------------------------------------
+       BANNER
+       ----------------------------------------------------- */
+
+    .banner-slide img {
+        aspect-ratio: 3 / 2;
+    }
+
+    .slider-prev,
+    .slider-next {
+        width: 34px;
+        height: 34px;
+
+        font-size: 13px;
+    }
+
+
+    /* -----------------------------------------------------
+       SECTION TITLES
+       ----------------------------------------------------- */
+
+    .section-title {
+        font-size: 30px;
+    }
+
+
+    /* -----------------------------------------------------
+       CARDS
+       ----------------------------------------------------- */
+
+    .about-card,
+    .format-card,
+    .why-card,
+    .judging-card,
+    .prize-card {
+        padding: 21px 18px;
+    }
+
+
+    /* -----------------------------------------------------
+       GALLERY
+       ----------------------------------------------------- */
+
+    .gallery-grid {
+        gap: 8px;
+    }
+
+    .gallery-item {
+        border-radius: 9px;
+    }
+
+
+    /* -----------------------------------------------------
+       SPONSORS
+       ----------------------------------------------------- */
+
+    .sponsors-grid {
+        gap: 10px;
+    }
+
+    .sponsor-card {
+        min-height: 80px;
+
+        padding: 12px;
+    }
+
+
+    /* -----------------------------------------------------
+       FAQ
+       ----------------------------------------------------- */
+
+    .faq-question {
+        padding: 17px 15px;
+
+        font-size: 14px;
+    }
+
+
+    /* -----------------------------------------------------
+       BUTTONS
+       ----------------------------------------------------- */
+
+    .btn {
+        min-height: 46px;
+
+        padding: 11px 18px;
+
+        font-size: 14px;
+    }
+
+}
+
+
+/* =========================================================
+   07. EXTRA SMALL DEVICES
+   BELOW 400px
+   ========================================================= */
+
+@media (max-width: 399px) {
+
+    .container {
+        width: 92%;
+    }
+
+
+    .hero-title {
+        font-size: 34px;
+    }
+
+
+    .hero-description {
+        font-size: 13.5px;
+    }
+
+
+    .section-title {
+        font-size: 27px;
+    }
+
+
+    .section-description {
+        font-size: 14px;
+    }
+
+
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .sponsors-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .mobile-nav {
+        left: 8px;
+        right: 8px;
+    }
+
+}
+
+
+/* =========================================================
+   08. LANDSCAPE MOBILE
+   ========================================================= */
+
+@media (
+    max-width: 900px
+) and (
+    orientation: landscape
+) {
+
+    .hero {
+        min-height: 560px;
+    }
+
+    .hero-content {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .mobile-nav {
+        max-height: calc(100vh - 85px);
+    }
+
+}
+
+
+/* =========================================================
+   09. ACCESSIBILITY — REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   10. TOUCH DEVICES
+   ========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .gallery-item:hover {
+        transform: none;
+    }
+
+    .format-card:hover,
+    .why-card:hover,
+    .judging-card:hover,
+    .prize-card:hover,
+    .winner-card:hover {
+        transform: none;
+    }
+
+}
+
+
+/* =========================================================
+   11. PRINT
+   ========================================================= */
+
+@media print {
+
+    .site-header,
+    .mobile-nav,
+    .mobile-menu-toggle,
+    .slider-prev,
+    .slider-next,
+    .slider-dots,
+    .hero-actions,
+    .gallery-lightbox {
+        display: none !important;
+    }
+
+
+    .section {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+
+    body {
+        background: #ffffff !important;
+    }
+
+}
+
+/* =========================================================
+   PREMIUM FOOTER — RESPONSIVE
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   TABLET
+   --------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+
+    .footer-main {
+
+        grid-template-columns:
+            1.5fr 1fr 1fr;
+
+        gap:
+            45px;
+
+    }
+
+    .footer-organizer {
+
+        grid-column:
+            span 3;
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 767px) {
+
+    .footer-container {
+
+        width:
+            min(
+                calc(100% - 36px),
+                650px
+            );
+
+    }
+
+
+    .footer-cta {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+        padding:
+            55px 0 50px;
+
+    }
+
+
+    .footer-cta h2 {
+
+        font-size:
+            clamp(38px, 11vw, 54px);
+
+    }
+
+
+    .footer-cta-button {
+
+        width:
+            100%;
+
+        justify-content:
+            space-between;
+
+    }
+
+
+    .footer-main {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:
+            45px 30px;
+
+        padding:
+            55px 0;
+
+    }
+
+
+    .footer-brand {
+
+        grid-column:
+            span 2;
+
+    }
+
+
+    .footer-organizer {
+
+        grid-column:
+            span 2;
+
+    }
+
+
+    .footer-motto {
+
+        gap:
+            10px;
+
+    }
+
+
+    .footer-motto span {
+
+        font-size:
+            8px;
+
+        letter-spacing:
+            0.13em;
+
+    }
+
+
+    .footer-bottom {
+
+        grid-template-columns:
+            1fr;
+
+        justify-items:
+            center;
+
+        text-align:
+            center;
+
+        gap:
+            13px;
+
+    }
+
+
+    .footer-credit {
+
+        text-align:
+            center;
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   SMALL MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 480px) {
+
+    .footer-container {
+
+        width:
+            91%;
+
+    }
+
+
+    .footer-cta {
+
+        padding:
+            48px 0 43px;
+
+    }
+
+
+    .footer-cta h2 {
+
+        font-size:
+            38px;
+
+    }
+
+
+    .footer-main {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            38px;
+
+    }
+
+
+    .footer-brand,
+    .footer-organizer {
+
+        grid-column:
+            auto;
+
+    }
+
+
+    .footer-motto {
+
+        flex-wrap:
+            wrap;
+
+    }
+
+
+    .footer-socials a {
+
+        width:
+            36px;
+
+        height:
+            36px;
+
+    }
+
+}
+
+/* =========================================================
+   REGISTRATION & SELECTION — RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+    .selection-timeline {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .selection-section {
+
+        padding:
+            85px 0;
+
+    }
+
+
+    .selection-container {
+
+        width:
+            min(
+                calc(100% - 30px),
+                650px
+            );
+
+    }
+
+
+    .selection-timeline {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .selection-evaluation {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+@media (max-width: 560px) {
+
+    .selection-timeline {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .selection-step {
+
+        min-height:
+            280px;
+
+    }
+
+
+    .selection-evaluation-card {
+
+        padding:
+            25px;
+
+    }
+
+
+    .selection-evaluation-card strong {
+
+        font-size:
+            54px;
+
+    }
+
+
+    .selection-note {
+
+        align-items:
+            flex-start;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .selection-container {
+
+        width:
+            92%;
+
+    }
+
+}
+
+/* =========================================================
+   16E. FINAL RESPONSIVE SAFETY
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav-links {
+        gap: 18px;
+    }
+
+}
+
+
+@media (max-width: 900px) {
+
+    .site-header {
+        padding: 12px 14px;
+    }
+
+    .glass-nav {
+        width: calc(100% - 4px);
+    }
+
+    .nav-links,
+    .nav-register-btn {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .glass-nav {
+        min-height: 62px;
+        padding: 8px 10px 8px 16px;
+    }
+
+    .nav-brand img {
+        width: 70px;
+        height: 38px;
+    }
+
+    .section-heading h2 {
+        font-size: clamp(30px, 8vw, 42px);
+    }
+
+    .category-card {
+        min-height: 340px;
+        padding: 26px;
+    }
+
+    .category-card h3 {
+        font-size: 30px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .site-header {
+        padding: 8px 8px;
+    }
+
+    .glass-nav {
+        width: 100%;
+        border-radius: 22px;
+    }
+
+    .category-card {
+        min-height: 310px;
+        padding: 22px;
+    }
+
+    .category-card h3 {
+        font-size: 27px;
+    }
+
+}
