@@ -54,15 +54,28 @@ function initPreloader() {
     const preloader =
         document.querySelector(".preloader");
 
-
     if (!preloader) {
         return;
     }
+
+    const minimumDisplayTime = 900;
+
+    const startTime = performance.now();
 
 
     window.addEventListener(
         "load",
         () => {
+
+            const elapsed =
+                performance.now() - startTime;
+
+            const remaining =
+                Math.max(
+                    0,
+                    minimumDisplayTime - elapsed
+                );
+
 
             setTimeout(() => {
 
@@ -70,13 +83,15 @@ function initPreloader() {
                     "loaded"
                 );
 
-            }, 500);
+            }, remaining);
 
+        },
+        {
+            once: true
         }
     );
 
 }
-
 
 /* =========================================================
    03. MOBILE NAVIGATION
