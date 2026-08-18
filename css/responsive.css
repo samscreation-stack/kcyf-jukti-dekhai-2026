@@ -1,336 +1,692 @@
 /* =========================================================
    KCYF যুক্তি দেখাই — PUBLIC SPEAKING COMPETITION 2026
-   RESPONSIVE CSS
+   RESPONSIVE SYSTEM
+   ---------------------------------------------------------
+   MOBILE-FIRST PREMIUM RESPONSIVE DESIGN
+
+   Primary audience:
+   📱 Mobile
+
+   Breakpoints:
+   ≤399px     Small phone
+   400-575px  Phone
+   576-767px  Large phone
+   768-991px  Tablet
+   992-1199px Laptop
+   1200-1439px Desktop
+   ≥1440px    Large desktop
    ========================================================= */
 
 
 /* =========================================================
-   01. LARGE DESKTOP
-   1440px+
+   01. GLOBAL RESPONSIVE FOUNDATION
    ========================================================= */
 
-@media (min-width: 1440px) {
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
 
-    .container {
-        max-width: 1280px;
-    }
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
 
-    .hero-content {
-        max-width: 1180px;
-    }
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
-    .section-title {
-        max-width: 850px;
-    }
+img,
+video,
+iframe,
+svg {
+    max-width: 100%;
+}
 
-    .about-grid,
-    .format-grid,
-    .why-grid {
-        gap: 48px;
-    }
+button,
+a,
+input,
+textarea,
+select {
+    font: inherit;
+}
 
-    .gallery-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span {
+    overflow-wrap: break-word;
 }
 
 
 /* =========================================================
-   02. LAPTOP / SMALL DESKTOP
-   1200px — 1439px
+   02. BASE MOBILE SYSTEM
+   =========================================================
+
+   MOBILE IS THE PRIMARY DESIGN.
+
+   We are not shrinking desktop.
+   We are building mobile properly first.
    ========================================================= */
 
-@media (max-width: 1439px) {
+.container,
+.section-container,
+.selection-container,
+.footer-container,
+.banner-container,
+.sponsors-container {
+    width: min(
+        calc(100% - 32px),
+        1180px
+    );
 
-    .container {
-        width: min(92%, 1180px);
-    }
+    margin-inline: auto;
+}
 
-    .nav-links {
-        gap: 24px;
-    }
 
-    .hero-content {
-        padding-left: 30px;
-        padding-right: 30px;
-    }
+/* ---------------------------------------------------------
+   SECTIONS
+   --------------------------------------------------------- */
 
-    .gallery-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.section {
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
 
+
+/* ---------------------------------------------------------
+   SECTION HEADINGS
+   --------------------------------------------------------- */
+
+.section-title,
+.section-heading h2 {
+    font-size: clamp(
+        2rem,
+        7vw,
+        3.2rem
+    );
+
+    line-height: 1.08;
+}
+
+.section-description {
+    font-size: clamp(
+        0.95rem,
+        2.8vw,
+        1.08rem
+    );
+
+    line-height: 1.75;
+}
+
+
+/* ---------------------------------------------------------
+   BUTTONS
+   --------------------------------------------------------- */
+
+.btn,
+button,
+.hero-primary-btn,
+.hero-secondary-btn,
+.footer-cta-button {
+    min-height: 48px;
 }
 
 
 /* =========================================================
-   03. TABLET LANDSCAPE
-   1024px — 1199px
+   03. MOBILE HEADER
    ========================================================= */
 
-@media (max-width: 1199px) {
+@media (max-width: 900px) {
 
-    /* -----------------------------------------------------
-       GLOBAL
-       ----------------------------------------------------- */
+    .site-header {
+        width: 100%;
+        padding: 10px 12px;
 
-    .container {
-        width: min(92%, 1050px);
+        box-sizing: border-box;
     }
 
+    .glass-nav {
+        width: 100%;
+        max-width: 100%;
 
-    .section {
-        padding-top: 90px;
-        padding-bottom: 90px;
-    }
-
-
-    /* -----------------------------------------------------
-       NAVIGATION
-       ----------------------------------------------------- */
-
-    .nav-links {
-        gap: 18px;
-    }
-
-    .nav-links a {
-        font-size: 14px;
-    }
-
-    .nav-cta {
-        padding: 11px 18px;
-    }
-
-
-    /* -----------------------------------------------------
-       HERO
-       ----------------------------------------------------- */
-
-    .hero {
-        min-height: 680px;
-    }
-
-    .hero-content {
-        max-width: 950px;
-    }
-
-    .hero-title {
-        font-size: clamp(52px, 6vw, 78px);
-    }
-
-
-    /* -----------------------------------------------------
-       ABOUT
-       ----------------------------------------------------- */
-
-    .about-grid {
-        gap: 40px;
-    }
-
-
-    /* -----------------------------------------------------
-       FORMAT
-       ----------------------------------------------------- */
-
-    .format-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       WHY PARTICIPATE
-       ----------------------------------------------------- */
-
-    .why-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       TIMELINE
-       ----------------------------------------------------- */
-
-    .timeline {
-        max-width: 900px;
-    }
-
-
-    /* -----------------------------------------------------
-       JUDGING
-       ----------------------------------------------------- */
-
-    .judging-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       PRIZES
-       ----------------------------------------------------- */
-
-    .prizes-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       WINNERS
-       ----------------------------------------------------- */
-
-    .winners-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       GALLERY
-       ----------------------------------------------------- */
-
-    .gallery-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-
-    /* =========================================================
-   SPONSORS & PARTNERS — RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 950px) {
-
-    .sponsors-logo-grid {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
-    }
-
-
-    .supporting-sponsors-grid {
-
-        grid-template-columns:
-            repeat(3, 1fr);
-
-    }
-
-}
-
-
-@media (max-width: 700px) {
-
-    .sponsors-section {
+        min-height: 64px;
 
         padding:
-            85px 0;
+            8px 12px 8px 16px;
 
+        margin: 0;
+
+        box-sizing: border-box;
     }
 
 
-    .sponsors-container {
+    /* -----------------------------------------------------
+       DESKTOP NAVIGATION OFF
+       ----------------------------------------------------- */
+
+    .nav-links,
+    .nav-register-btn {
+        display: none !important;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE MENU BUTTON
+       ----------------------------------------------------- */
+
+    .mobile-menu-toggle {
+        display: flex !important;
+
+        width: 46px;
+        height: 46px;
+
+        padding: 0;
+
+        flex-shrink: 0;
+
+        align-items: center;
+        justify-content: center;
+
+        flex-direction: column;
+
+        gap: 5px;
+
+        border: 0;
+
+        background: transparent;
+
+        cursor: pointer;
+
+        -webkit-tap-highlight-color:
+            transparent;
+    }
+
+    .mobile-menu-toggle span {
+        display: block;
+
+        width: 23px;
+        height: 2px;
+
+        border-radius: 999px;
+
+        background:
+            var(--color-black);
+
+        transition:
+            transform 0.28s ease,
+            opacity 0.2s ease;
+    }
+
+
+    /* -----------------------------------------------------
+       HAMBURGER → X
+       ----------------------------------------------------- */
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform:
+            translateY(7px)
+            rotate(45deg);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform:
+            translateY(-7px)
+            rotate(-45deg);
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE MENU
+       ----------------------------------------------------- */
+
+    .mobile-nav {
+
+        position: fixed;
+
+        top: 82px;
+
+        left: 12px;
+        right: 12px;
+
+        width: auto;
+
+        max-height:
+            calc(100dvh - 100px);
+
+        padding: 14px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 5px;
+
+        overflow-y: auto;
+
+        background:
+            rgba(255,255,255,0.97);
+
+        border:
+            1px solid rgba(0,0,0,0.08);
+
+        border-radius: 24px;
+
+        box-shadow:
+            0 24px 70px
+            rgba(0,0,0,0.16);
+
+        backdrop-filter:
+            blur(24px);
+
+        -webkit-backdrop-filter:
+            blur(24px);
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        transform:
+            translateY(-12px)
+            scale(0.98);
+
+        pointer-events: none;
+
+        transition:
+            opacity 0.28s ease,
+            transform 0.28s ease,
+            visibility 0.28s ease;
+
+        z-index: 9999;
+    }
+
+    .mobile-nav.active {
+
+        opacity: 1;
+
+        visibility: visible;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        pointer-events: auto;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE LINKS
+       ----------------------------------------------------- */
+
+    .mobile-nav a {
+
+        display: flex;
+
+        align-items: center;
+
+        width: 100%;
+
+        min-height: 50px;
+
+        padding:
+            0 16px;
+
+        border-radius: 15px;
+
+        color:
+            var(--color-black);
+
+        text-decoration: none;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        transition:
+            background 0.2s ease,
+            color 0.2s ease;
+
+        -webkit-tap-highlight-color:
+            transparent;
+    }
+
+    .mobile-nav a:active {
+        transform: scale(0.985);
+    }
+
+    .mobile-nav a:hover {
+        background:
+            rgba(32,173,212,0.09);
+
+        color:
+            var(--color-primary);
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE REGISTER
+       ----------------------------------------------------- */
+
+    .mobile-nav .mobile-register-btn {
+
+        margin-top: 8px;
+
+        justify-content: center;
+
+        min-height: 52px;
+
+        background:
+            var(--color-black);
+
+        color:
+            var(--color-white);
+    }
+
+}
+
+
+/* =========================================================
+   04. HERO — MOBILE FIRST
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .hero-section,
+    .hero {
+        min-height: auto;
+
+        padding:
+            112px 0 64px;
+    }
+
+    .hero-container {
 
         width:
             min(
-                calc(100% - 30px),
+                calc(100% - 32px),
                 650px
             );
 
+        grid-template-columns:
+            1fr;
+
+        gap: 38px;
+
+        margin-inline: auto;
+    }
+
+    .hero-content {
+
+        width: 100%;
+        max-width: 680px;
+
+        margin-inline: auto;
+
+        text-align: center;
     }
 
 
-    .title-sponsor-card {
+    /* -----------------------------------------------------
+       EYEBROW
+       ----------------------------------------------------- */
 
-        flex-direction:
-            column;
+    .hero-eyebrow {
+        justify-content: center;
 
-        gap:
-            20px;
-
-        text-align:
-            center;
-
+        font-size:
+            clamp(
+                0.72rem,
+                2.7vw,
+                0.9rem
+            );
     }
 
 
-    .sponsor-cta {
+    /* -----------------------------------------------------
+       MAIN TITLE
+       ----------------------------------------------------- */
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                2.9rem,
+                13vw,
+                5.4rem
+            );
+
+        line-height:
+            0.96;
+
+        letter-spacing:
+            -0.035em;
+    }
+
+
+    /* -----------------------------------------------------
+       SUBTITLE
+       ----------------------------------------------------- */
+
+    .hero-subtitle {
+
+        font-size:
+            clamp(
+                1rem,
+                4vw,
+                1.25rem
+            );
+
+        line-height:
+            1.4;
+    }
+
+
+    .hero-tagline {
+
+        font-size:
+            clamp(
+                0.9rem,
+                3.4vw,
+                1.05rem
+            );
+
+        line-height:
+            1.55;
+    }
+
+
+    .hero-description {
+
+        max-width:
+            600px;
+
+        margin-inline: auto;
+
+        font-size:
+            clamp(
+                0.92rem,
+                3.5vw,
+                1.05rem
+            );
+
+        line-height:
+            1.75;
+    }
+
+
+    /* -----------------------------------------------------
+       HERO BUTTONS
+       ----------------------------------------------------- */
+
+    .hero-actions {
+
+        width: 100%;
 
         flex-direction:
             column;
 
         align-items:
-            flex-start;
+            stretch;
 
+        gap: 10px;
+    }
+
+    .hero-primary-btn,
+    .hero-secondary-btn {
+
+        width: 100%;
+
+        min-height: 52px;
+
+        justify-content:
+            center;
+    }
+
+
+    /* -----------------------------------------------------
+       HERO FACTS
+       ----------------------------------------------------- */
+
+    .hero-facts {
+
+        width: 100%;
+
+        justify-content:
+            center;
+
+        gap: 18px;
+
+        margin-top: 28px;
+    }
+
+    .hero-fact strong {
+
+        font-size:
+            clamp(
+                0.9rem,
+                3.5vw,
+                1.15rem
+            );
+    }
+
+    .hero-fact span {
+
+        font-size:
+            clamp(
+                0.7rem,
+                2.6vw,
+                0.85rem
+            );
+    }
+
+
+    /* -----------------------------------------------------
+       HERO LOGO
+       ----------------------------------------------------- */
+
+    .hero-logo-area {
+
+        width: 100%;
+
+        height:
+            clamp(
+                280px,
+                75vw,
+                390px
+            );
+    }
+
+    .hero-logo-platform {
+
+        width:
+            clamp(
+                220px,
+                65vw,
+                320px
+            );
+
+        height:
+            clamp(
+                220px,
+                65vw,
+                320px
+            );
+    }
+
+    .hero-logo-frame {
+
+        width:
+            clamp(
+                140px,
+                45vw,
+                205px
+            );
+
+        height:
+            clamp(
+                140px,
+                45vw,
+                205px
+            );
+    }
+
+    .hero-kcyf-logo {
+
+        width:
+            clamp(
+                105px,
+                34vw,
+                155px
+            );
+    }
+
+
+    .hero-scroll-indicator {
+        display: none;
     }
 
 }
 
 
-@media (max-width: 500px) {
-
-    .sponsors-container {
-
-        width:
-            92%;
-
-    }
-
-
-    .sponsors-logo-grid {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .supporting-sponsors-grid {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
-    }
-
-
-    .sponsor-logo-wrap {
-
-        width:
-            180px;
-
-    }
-
-
-    .sponsor-cta {
-
-        padding:
-            25px;
-
-    }
-
-}
-
-    /* =========================================================
-   OFFICIAL BANNER SLIDER — RESPONSIVE
+/* =========================================================
+   05. OFFICIAL BANNERS
+   ---------------------------------------------------------
+   IMPORTANT:
+   Original banner proportions are preserved.
+   No forced cropping.
    ========================================================= */
-
 
 @media (max-width: 767px) {
 
     .official-banners-section {
-
         padding:
-            75px 0;
-
+            68px 0;
     }
-
 
     .banner-container {
 
         width:
             min(
-                calc(100% - 30px),
+                calc(100% - 32px),
                 650px
             );
 
+        margin-inline: auto;
     }
-
 
     .banner-section-header {
 
@@ -340,1297 +696,648 @@
         align-items:
             flex-start;
 
-        gap:
-            18px;
+        gap: 12px;
 
-        margin-bottom:
-            30px;
-
+        margin-bottom: 24px;
     }
-
 
     .banner-section-header h2 {
 
         font-size:
-            42px;
+            clamp(
+                2rem,
+                8vw,
+                3rem
+            );
 
+        line-height: 1.05;
     }
-
 
     .banner-section-header p {
 
-        max-width:
-            100%;
-
-    }
-
-
-    .official-banner-slider {
-
-        padding:
-            10px;
-
-        border-radius:
-            20px;
-
-    }
-
-
-    .banner-track {
-
-        border-radius:
-            13px;
-
-    }
-
-
-    .banner-control {
-
-        width:
-            38px;
-
-        height:
-            38px;
+        max-width: 100%;
 
         font-size:
-            15px;
-
-    }
-
-
-    .banner-prev {
-
-        left:
-            18px;
-
-    }
-
-
-    .banner-next {
-
-        right:
-            18px;
-
-    }
-
-
-    .banner-slider-info {
-
-        margin-top:
-            13px;
-
-    }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 480px) {
-
-    .official-banners-section {
-
-        padding:
-            60px 0;
-
-    }
-
-
-    .banner-container {
-
-        width:
-            92%;
-
-    }
-
-
-    .banner-section-header h2 {
-
-        font-size:
-            36px;
-
-    }
-
-
-    .official-banner-slider {
-
-        padding:
-            7px;
-
-        border-radius:
-            16px;
-
-    }
-
-
-    .banner-track {
-
-        border-radius:
-            10px;
-
-    }
-
-
-    .banner-control {
-
-        width:
-            34px;
-
-        height:
-            34px;
-
-    }
-
-
-    .banner-prev {
-
-        left:
-            12px;
-
-    }
-
-
-    .banner-next {
-
-        right:
-            12px;
-
-    }
-
-
-    .banner-current,
-    .banner-total {
-
-        font-size:
-            9px;
-
-    }
-
-}
-
-    /* -----------------------------------------------------
-       ABOUT
-       ----------------------------------------------------- */
-
-    .about-grid {
-        grid-template-columns: 1fr;
-
-        gap: 35px;
-    }
-
-    .about-content {
-        max-width: 760px;
-    }
-
-
-    /* -----------------------------------------------------
-       FORMAT / CATEGORIES
-       ----------------------------------------------------- */
-
-    .format-grid {
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 20px;
-    }
-
-
-    /* -----------------------------------------------------
-       WHY PARTICIPATE
-       ----------------------------------------------------- */
-
-    .why-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       HOW IT WORKS
-       ----------------------------------------------------- */
-
-    .process-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       TIMELINE
-       ----------------------------------------------------- */
-
-    .timeline {
-        padding-left: 25px;
-    }
-
-
-    /* -----------------------------------------------------
-       JUDGING CRITERIA
-       ----------------------------------------------------- */
-
-    .judging-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       PRIZES
-       ----------------------------------------------------- */
-
-    .prizes-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       WINNERS
-       ----------------------------------------------------- */
-
-    .winners-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       GALLERY
-       ----------------------------------------------------- */
-
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 16px;
-    }
-
-
-    /* -----------------------------------------------------
-       SPONSORS
-       ----------------------------------------------------- */
-
-    .sponsors-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-
-    /* -----------------------------------------------------
-       FAQ
-       ----------------------------------------------------- */
-
-    .faq-list {
-        max-width: 850px;
-    }
-
-
-    /* -----------------------------------------------------
-       REGISTRATION
-       ----------------------------------------------------- */
-
-    .registration-content {
-        max-width: 800px;
-    }
-
-}
-
-
-/* =========================================================
-   05. LARGE MOBILE
-   576px — 767px
-   ========================================================= */
-
-@media (max-width: 767px) {
-
-    /* -----------------------------------------------------
-       GLOBAL
-       ----------------------------------------------------- */
-
-    .container {
-        width: min(92%, 650px);
-    }
-
-    .section {
-        padding-top: 68px;
-        padding-bottom: 68px;
-    }
-
-    .section-header {
-        margin-bottom: 38px;
-    }
-
-    .section-title {
-        font-size: clamp(30px, 7vw, 44px);
-
-        line-height: 1.12;
-    }
-
-    .section-description {
-        font-size: 15px;
+            clamp(
+                0.9rem,
+                3.2vw,
+                1rem
+            );
 
         line-height: 1.7;
     }
 
 
-    /* -----------------------------------------------------
-       HEADER
-       ----------------------------------------------------- */
+    .official-banner-slider {
 
-    .site-header {
-        padding: 10px 0;
+        width: 100%;
+
+        padding: 7px;
+
+        border-radius: 18px;
     }
 
-    .nav-inner {
-        min-height: 54px;
-    }
+    .banner-track {
 
-    .brand-logo {
-        max-width: 145px;
-    }
+        width: 100%;
 
+        border-radius: 12px;
 
-    /* -----------------------------------------------------
-       MOBILE NAV
-       ----------------------------------------------------- */
-
-    .mobile-nav {
-        top: 68px;
-
-        left: 12px;
-        right: 12px;
-
-        border-radius: 20px;
+        overflow: hidden;
     }
 
 
-    /* =========================================================
-   HERO — RESPONSIVE
+    /*
+     * DO NOT CROP THE OFFICIAL BANNER.
+     */
+
+    .banner-slide img {
+
+        width: 100%;
+        height: auto;
+
+        aspect-ratio: auto;
+
+        object-fit: contain;
+
+        display: block;
+    }
+
+
+    .banner-control {
+
+        width: 40px;
+        height: 40px;
+
+        font-size: 14px;
+    }
+
+    .banner-prev {
+        left: 10px;
+    }
+
+    .banner-next {
+        right: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   06. ABOUT
    ========================================================= */
 
-@media (max-width: 1023px) {
+@media (max-width: 991px) {
 
-    .hero-section {
-
-        padding:
-            135px 0 85px;
-
-    }
-
-
-    .hero-container {
+    .about-grid {
 
         grid-template-columns:
             1fr;
 
-        gap:
-            50px;
-
+        gap: 32px;
     }
 
+    .about-content {
 
-    .hero-content {
+        width: 100%;
 
         max-width:
             760px;
-
-        margin-inline:
-            auto;
-
-        text-align:
-            center;
-
-    }
-
-
-    .hero-eyebrow {
-
-        justify-content:
-            center;
-
-    }
-
-
-    .hero-description {
-
-        margin-inline:
-            auto;
-
-    }
-
-
-    .hero-actions {
-
-        justify-content:
-            center;
-
-    }
-
-
-    .hero-facts {
-
-        justify-content:
-            center;
-
-    }
-
-
-    .hero-logo-area {
-
-        height:
-            420px;
-
-    }
-
-
-    .hero-logo-platform {
-
-        width:
-            320px;
-
-        height:
-            320px;
-
-    }
-
-
-    .hero-logo-frame {
-
-        width:
-            205px;
-
-        height:
-            205px;
-
-    }
-
-
-    .hero-kcyf-logo {
-
-        width:
-            155px;
-
-    }
-
-
-    .hero-scroll-indicator {
-
-        display:
-            none;
-
     }
 
 }
 
 
 /* =========================================================
-   MOBILE
+   07. FORMAT / CATEGORIES
    ========================================================= */
 
 @media (max-width: 767px) {
 
-    .hero-section {
+    .format-grid,
+    .categories-grid {
 
-        min-height:
-            auto;
+        grid-template-columns:
+            1fr;
+
+        gap: 16px;
+
+        width: 100%;
+    }
+
+    .format-card,
+    .category-card {
+
+        width: 100%;
+
+        min-width: 0;
 
         padding:
-            120px 0 65px;
-
+            clamp(24px, 6vw, 34px);
     }
 
-
-    .hero-container {
-
-        width:
-            min(
-                calc(100% - 30px),
-                650px
-            );
-
-        gap:
-            45px;
-
-    }
-
-
-    .hero-title {
+    .category-card h3 {
 
         font-size:
             clamp(
-                62px,
-                18vw,
-                92px
+                1.6rem,
+                7vw,
+                2.2rem
             );
-
-    }
-
-
-    .hero-subtitle {
-
-        font-size:
-            17px;
-
-    }
-
-
-    .hero-tagline {
-
-        font-size:
-            15px;
-
-    }
-
-
-    .hero-description {
-
-        font-size:
-            13px;
-
-    }
-
-
-    .hero-actions {
-
-        flex-direction:
-            column;
-
-        width:
-            100%;
-
-    }
-
-
-    .hero-primary-btn,
-    .hero-secondary-btn {
-
-        width:
-            100%;
-
-    }
-
-
-    .hero-facts {
-
-        gap:
-            13px;
-
-        margin-top:
-            38px;
-
-    }
-
-
-    .hero-fact strong {
-
-        font-size:
-            10px;
-
-    }
-
-
-    .hero-fact span {
-
-        font-size:
-            7px;
-
-    }
-
-
-    .hero-logo-area {
-
-        height:
-            340px;
-
-    }
-
-
-    .hero-logo-platform {
-
-        width:
-            260px;
-
-        height:
-            260px;
-
-    }
-
-
-    .hero-logo-ring {
-
-        inset:
-            16px;
-
-    }
-
-
-    .hero-logo-frame {
-
-        width:
-            170px;
-
-        height:
-            170px;
-
-    }
-
-
-    .hero-kcyf-logo {
-
-        width:
-            130px;
-
-    }
-
-
-    .hero-logo-label {
-
-        right:
-            3%;
-
-        bottom:
-            4%;
-
-        font-size:
-            7px;
-
     }
 
 }
 
 
 /* =========================================================
-   SMALL MOBILE
+   08. WHY PARTICIPATE
    ========================================================= */
 
-@media (max-width: 480px) {
+@media (max-width: 767px) {
 
-    .hero-section {
+    .why-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 16px;
+    }
+
+    .why-card {
+
+        width: 100%;
+
+        min-width: 0;
 
         padding:
-            110px 0 55px;
-
-    }
-
-
-    .hero-container {
-
-        width:
-            92%;
-
-    }
-
-
-    .hero-title {
-
-        font-size:
-            62px;
-
-    }
-
-
-    .hero-logo-area {
-
-        height:
-            300px;
-
-    }
-
-
-    .hero-logo-platform {
-
-        width:
-            225px;
-
-        height:
-            225px;
-
-    }
-
-
-    .hero-logo-frame {
-
-        width:
-            145px;
-
-        height:
-            145px;
-
-    }
-
-
-    .hero-kcyf-logo {
-
-        width:
-            110px;
-
-    }
-
-
-    .hero-logo-label {
-
-        right:
-            0;
-
+            clamp(22px, 5vw, 30px);
     }
 
 }
 
 
-    /* -----------------------------------------------------
-       OFFICIAL BANNER
-       ----------------------------------------------------- */
+/* =========================================================
+   09. HOW IT WORKS / PROCESS
+   ========================================================= */
 
-    .banner-section {
-        padding-top: 55px;
-    }
-
-    .banner-slider {
-        border-radius: 18px;
-    }
-
-    .banner-slide img {
-        aspect-ratio: 4 / 3;
-
-       object-fit: contain;
-    }
-
-    .slider-prev,
-    .slider-next {
-        width: 38px;
-        height: 38px;
-
-        font-size: 15px;
-    }
-
-    .slider-prev {
-        left: 10px;
-    }
-
-    .slider-next {
-        right: 10px;
-    }
-
-    .slider-dots {
-        bottom: 12px;
-    }
-
-    .slider-dot {
-        width: 7px;
-        height: 7px;
-    }
-
-
-    /* -----------------------------------------------------
-       ABOUT
-       ----------------------------------------------------- */
-
-    .about-grid {
-        grid-template-columns: 1fr;
-
-        gap: 30px;
-    }
-
-    .about-card {
-        padding: 25px 22px;
-    }
-
-
-    /* -----------------------------------------------------
-       FORMAT / THREE CATEGORIES
-       ----------------------------------------------------- */
-
-    .format-grid {
-        grid-template-columns: 1fr;
-
-        gap: 15px;
-    }
-
-    .format-card {
-        padding: 25px 22px;
-    }
-
-
-    /* -----------------------------------------------------
-       WHY PARTICIPATE
-       ----------------------------------------------------- */
-
-    .why-grid {
-        grid-template-columns: 1fr;
-
-        gap: 15px;
-    }
-
-    .why-card {
-        padding: 24px 21px;
-    }
-
-
-    /* -----------------------------------------------------
-       PROCESS
-       ----------------------------------------------------- */
+@media (max-width: 767px) {
 
     .process-grid {
-        grid-template-columns: 1fr;
 
-        gap: 15px;
+        grid-template-columns:
+            1fr;
+
+        gap: 16px;
     }
 
+    .process-card {
 
-    /* -----------------------------------------------------
-       TIMELINE
-       ----------------------------------------------------- */
+        width: 100%;
+
+        min-width: 0;
+    }
+
+}
+
+
+/* =========================================================
+   10. TIMELINE
+   ========================================================= */
+
+@media (max-width: 767px) {
 
     .timeline {
-        padding-left: 20px;
+
+        padding-left: 24px;
+
+        max-width:
+            100%;
     }
 
     .timeline-item {
-        padding-left: 25px;
+
+        padding-left: 22px;
     }
 
     .timeline-number {
-        width: 32px;
-        height: 32px;
 
-        left: -16px;
+        width: 34px;
+        height: 34px;
+
+        left: -17px;
     }
 
+}
 
-    /* -----------------------------------------------------
-       JUDGING
-       ----------------------------------------------------- */
+
+/* =========================================================
+   11. JUDGING
+   ========================================================= */
+
+@media (max-width: 767px) {
 
     .judging-grid {
-        grid-template-columns: 1fr;
 
-        gap: 13px;
+        grid-template-columns:
+            1fr;
+
+        gap: 14px;
     }
 
     .judging-card {
-        padding: 22px;
+
+        width: 100%;
+
+        min-width: 0;
+
+        padding:
+            clamp(22px, 5vw, 30px);
     }
 
+}
 
-    /* -----------------------------------------------------
-       PRIZES
-       ----------------------------------------------------- */
+
+/* =========================================================
+   12. PRIZES
+   ========================================================= */
+
+@media (max-width: 767px) {
 
     .prizes-grid {
-        grid-template-columns: 1fr;
 
-        gap: 15px;
+        grid-template-columns:
+            1fr;
+
+        gap: 16px;
     }
 
     .prize-card {
-        padding: 28px 22px;
+
+        width: 100%;
+
+        min-width: 0;
+
+        padding:
+            clamp(24px, 6vw, 34px);
     }
 
+}
 
-    /* -----------------------------------------------------
-       WINNERS
-       ----------------------------------------------------- */
+
+/* =========================================================
+   13. WINNERS
+   ========================================================= */
+
+@media (max-width: 767px) {
 
     .winners-grid {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
 
         gap: 18px;
     }
 
     .winner-card {
-        max-width: 500px;
 
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-
-    /* -----------------------------------------------------
-       GALLERY
-       ----------------------------------------------------- */
-
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 10px;
-    }
-
-    .gallery-item {
-        border-radius: 12px;
-    }
-
-
-    /* -----------------------------------------------------
-       GALLERY LIGHTBOX
-       ----------------------------------------------------- */
-
-    .gallery-lightbox {
-        padding: 15px;
-    }
-
-    .lightbox-image {
-        max-width: 95vw;
-
-        max-height: 78vh;
-    }
-
-    .lightbox-close {
-        top: 12px;
-        right: 12px;
-    }
-
-    .lightbox-prev,
-    .lightbox-next {
-        width: 38px;
-        height: 38px;
-    }
-
-
-    /* -----------------------------------------------------
-       SPONSORS
-       ----------------------------------------------------- */
-
-    .sponsors-grid {
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 15px;
-    }
-
-    .sponsor-card {
-        min-height: 95px;
-
-        padding: 18px;
-    }
-
-
-    /* -----------------------------------------------------
-       FAQ
-       ----------------------------------------------------- */
-
-    .faq-question {
-        padding: 19px 18px;
-
-        font-size: 15px;
-    }
-
-    .faq-answer {
-        padding-left: 18px;
-        padding-right: 18px;
-    }
-
-
-    /* -----------------------------------------------------
-       REGISTRATION
-       ----------------------------------------------------- */
-
-    .registration-content {
         width: 100%;
+
+        max-width:
+            560px;
+
+        margin-inline: auto;
     }
-
-    .registration-card {
-        padding: 30px 22px;
-
-        border-radius: 22px;
-    }
-
-
-    
 
 }
 
 
 /* =========================================================
-   06. SMALL MOBILE
-   BELOW 576px
+   14. GALLERY
    ========================================================= */
 
-@media (max-width: 575px) {
-
-    /* -----------------------------------------------------
-       GLOBAL
-       ----------------------------------------------------- */
-
-    .container {
-        width: 91%;
-    }
-
-    .section {
-        padding-top: 58px;
-        padding-bottom: 58px;
-    }
-
-
-    /* -----------------------------------------------------
-       HEADER
-       ----------------------------------------------------- */
-
-    .brand-logo {
-        max-width: 125px;
-    }
-
-
-    /* -----------------------------------------------------
-       HERO
-       ----------------------------------------------------- */
-
-    .hero {
-        min-height: 590px;
-    }
-
-    .hero-title {
-        font-size: clamp(36px, 12vw, 50px);
-    }
-
-    .hero-description {
-        font-size: 14px;
-    }
-
-
-    /* -----------------------------------------------------
-       BANNER
-       ----------------------------------------------------- */
-
-    .banner-slide img {
-        aspect-ratio: 3 / 2;
-    }
-
-    .slider-prev,
-    .slider-next {
-        width: 34px;
-        height: 34px;
-
-        font-size: 13px;
-    }
-
-
-    /* -----------------------------------------------------
-       SECTION TITLES
-       ----------------------------------------------------- */
-
-    .section-title {
-        font-size: 30px;
-    }
-
-
-    /* -----------------------------------------------------
-       CARDS
-       ----------------------------------------------------- */
-
-    .about-card,
-    .format-card,
-    .why-card,
-    .judging-card,
-    .prize-card {
-        padding: 21px 18px;
-    }
-
-
-    /* -----------------------------------------------------
-       GALLERY
-       ----------------------------------------------------- */
+@media (max-width: 767px) {
 
     .gallery-grid {
-        gap: 8px;
+
+        width: 100%;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 9px;
     }
 
+    .gallery-card,
     .gallery-item {
-        border-radius: 9px;
+
+        width: 100%;
+
+        min-width: 0;
+
+        overflow: hidden;
+
+        border-radius: 12px;
     }
 
+    .gallery-card img,
+    .gallery-item img {
 
-    /* -----------------------------------------------------
-       SPONSORS
-       ----------------------------------------------------- */
+        width: 100%;
 
-    .sponsors-grid {
-        gap: 10px;
+        display: block;
+
+        max-width: 100%;
     }
 
-    .sponsor-card {
-        min-height: 80px;
+}
+
+
+/* =========================================================
+   15. GALLERY LIGHTBOX
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .gallery-lightbox {
 
         padding: 12px;
     }
 
+    .lightbox-image {
 
-    /* -----------------------------------------------------
-       FAQ
-       ----------------------------------------------------- */
+        width: auto;
+
+        max-width:
+            94vw;
+
+        max-height:
+            78dvh;
+
+        object-fit: contain;
+    }
+
+    .lightbox-close {
+
+        top: 10px;
+        right: 10px;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+
+        width: 42px;
+        height: 42px;
+    }
+
+}
+
+
+/* =========================================================
+   16. SPONSORS
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .sponsors-logo-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .supporting-sponsors-grid {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .sponsors-section {
+
+        padding:
+            70px 0;
+    }
+
+    .sponsors-container {
+
+        width:
+            min(
+                calc(100% - 32px),
+                650px
+            );
+    }
+
+    .title-sponsor-card {
+
+        flex-direction:
+            column;
+
+        gap: 20px;
+
+        text-align:
+            center;
+    }
+
+    .supporting-sponsors-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 12px;
+    }
+
+    .sponsor-card {
+
+        min-width: 0;
+
+        padding: 16px;
+    }
+
+    .sponsor-cta {
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+        gap: 14px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .sponsors-logo-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+
+/* =========================================================
+   17. FAQ
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .faq-list {
+
+        width: 100%;
+
+        max-width: 100%;
+    }
 
     .faq-question {
-        padding: 17px 15px;
 
-        font-size: 14px;
+        min-height: 54px;
+
+        padding:
+            16px 15px;
+
+        font-size:
+            clamp(
+                0.92rem,
+                3.5vw,
+                1rem
+            );
+
+        line-height: 1.45;
     }
 
+    .faq-answer {
 
-    /* -----------------------------------------------------
-       BUTTONS
-       ----------------------------------------------------- */
+        padding-left: 15px;
+        padding-right: 15px;
 
-    .btn {
-        min-height: 46px;
+        font-size:
+            clamp(
+                0.9rem,
+                3.3vw,
+                1rem
+            );
 
-        padding: 11px 18px;
-
-        font-size: 14px;
-    }
-
-}
-
-
-/* =========================================================
-   07. EXTRA SMALL DEVICES
-   BELOW 400px
-   ========================================================= */
-
-@media (max-width: 399px) {
-
-    .container {
-        width: 92%;
-    }
-
-
-    .hero-title {
-        font-size: 34px;
-    }
-
-
-    .hero-description {
-        font-size: 13.5px;
-    }
-
-
-    .section-title {
-        font-size: 27px;
-    }
-
-
-    .section-description {
-        font-size: 14px;
-    }
-
-
-    .gallery-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-
-    .sponsors-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-
-    .mobile-nav {
-        left: 8px;
-        right: 8px;
+        line-height: 1.7;
     }
 
 }
 
 
 /* =========================================================
-   08. LANDSCAPE MOBILE
+   18. REGISTRATION
    ========================================================= */
 
-@media (
-    max-width: 900px
-) and (
-    orientation: landscape
-) {
+@media (max-width: 767px) {
 
-    .hero {
-        min-height: 560px;
+    .registration-content {
+
+        width: 100%;
+
+        max-width: 100%;
     }
 
-    .hero-content {
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
+    .registration-card {
 
-    .mobile-nav {
-        max-height: calc(100vh - 85px);
+        width: 100%;
+
+        padding:
+            clamp(24px, 6vw, 34px);
+
+        border-radius: 22px;
     }
 
 }
 
 
 /* =========================================================
-   09. ACCESSIBILITY — REDUCED MOTION
+   19. SELECTION
    ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 1050px) {
 
-    *,
-    *::before,
-    *::after {
+    .selection-timeline {
 
-        scroll-behavior: auto !important;
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
 
-        animation-duration: 0.01ms !important;
+}
 
-        animation-iteration-count: 1 !important;
 
-        transition-duration: 0.01ms !important;
+@media (max-width: 800px) {
 
+    .selection-section {
+
+        padding:
+            72px 0;
+    }
+
+    .selection-container {
+
+        width:
+            min(
+                calc(100% - 32px),
+                650px
+            );
+    }
+
+    .selection-timeline {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .selection-evaluation {
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+
+@media (max-width: 560px) {
+
+    .selection-timeline {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .selection-step {
+
+        min-height:
+            240px;
+    }
+
+    .selection-evaluation-card {
+
+        padding:
+            24px;
+    }
+
+    .selection-evaluation-card strong {
+
+        font-size:
+            clamp(
+                2.7rem,
+                13vw,
+                4rem
+            );
     }
 
 }
 
 
 /* =========================================================
-   10. TOUCH DEVICES
+   20. PREMIUM FOOTER
    ========================================================= */
-
-@media (hover: none) and (pointer: coarse) {
-
-    .gallery-item:hover {
-        transform: none;
-    }
-
-    .format-card:hover,
-    .why-card:hover,
-    .judging-card:hover,
-    .prize-card:hover,
-    .winner-card:hover {
-        transform: none;
-    }
-
-}
-
-
-/* =========================================================
-   11. PRINT
-   ========================================================= */
-
-@media print {
-
-    .site-header,
-    .mobile-nav,
-    .mobile-menu-toggle,
-    .slider-prev,
-    .slider-next,
-    .slider-dots,
-    .hero-actions,
-    .gallery-lightbox {
-        display: none !important;
-    }
-
-
-    .section {
-        padding-top: 30px;
-        padding-bottom: 30px;
-    }
-
-
-    body {
-        background: #ffffff !important;
-    }
-
-}
-
-/* =========================================================
-   PREMIUM FOOTER — RESPONSIVE
-   ========================================================= */
-
-
-/* ---------------------------------------------------------
-   TABLET
-   --------------------------------------------------------- */
 
 @media (max-width: 1023px) {
 
@@ -1639,24 +1346,17 @@
         grid-template-columns:
             1.5fr 1fr 1fr;
 
-        gap:
-            45px;
-
+        gap: 38px;
     }
 
     .footer-organizer {
 
         grid-column:
             span 3;
-
     }
 
 }
 
-
-/* ---------------------------------------------------------
-   MOBILE
-   --------------------------------------------------------- */
 
 @media (max-width: 767px) {
 
@@ -1664,12 +1364,10 @@
 
         width:
             min(
-                calc(100% - 36px),
+                calc(100% - 32px),
                 650px
             );
-
     }
-
 
     .footer-cta {
 
@@ -1679,30 +1377,34 @@
         align-items:
             flex-start;
 
+        gap: 22px;
+
         padding:
-            55px 0 50px;
-
+            52px 0 46px;
     }
-
 
     .footer-cta h2 {
 
         font-size:
-            clamp(38px, 11vw, 54px);
+            clamp(
+                2rem,
+                10vw,
+                3.4rem
+            );
 
+        line-height:
+            1.02;
     }
-
 
     .footer-cta-button {
 
-        width:
-            100%;
+        width: 100%;
 
         justify-content:
             space-between;
 
+        min-height: 54px;
     }
-
 
     .footer-main {
 
@@ -1710,48 +1412,23 @@
             1fr 1fr;
 
         gap:
-            45px 30px;
+            38px 24px;
 
         padding:
-            55px 0;
-
+            52px 0;
     }
-
 
     .footer-brand {
 
         grid-column:
             span 2;
-
     }
-
 
     .footer-organizer {
 
         grid-column:
             span 2;
-
     }
-
-
-    .footer-motto {
-
-        gap:
-            10px;
-
-    }
-
-
-    .footer-motto span {
-
-        font-size:
-            8px;
-
-        letter-spacing:
-            0.13em;
-
-    }
-
 
     .footer-bottom {
 
@@ -1764,527 +1441,568 @@
         text-align:
             center;
 
-        gap:
-            13px;
-
+        gap: 12px;
     }
-
 
     .footer-credit {
 
         text-align:
             center;
-
     }
 
 }
 
 
-/* ---------------------------------------------------------
-   SMALL MOBILE
-   --------------------------------------------------------- */
-
 @media (max-width: 480px) {
-
-    .footer-container {
-
-        width:
-            91%;
-
-    }
-
-
-    .footer-cta {
-
-        padding:
-            48px 0 43px;
-
-    }
-
-
-    .footer-cta h2 {
-
-        font-size:
-            38px;
-
-    }
-
 
     .footer-main {
 
         grid-template-columns:
             1fr;
 
-        gap:
-            38px;
-
+        gap: 34px;
     }
-
 
     .footer-brand,
     .footer-organizer {
 
         grid-column:
             auto;
-
     }
-
-
-    .footer-motto {
-
-        flex-wrap:
-            wrap;
-
-    }
-
 
     .footer-socials a {
 
-        width:
-            36px;
-
-        height:
-            36px;
-
+        width: 40px;
+        height: 40px;
     }
 
 }
+
 
 /* =========================================================
-   REGISTRATION & SELECTION — RESPONSIVE
+   21. TOUCH DEVICES
    ========================================================= */
 
-@media (max-width: 1050px) {
+@media (hover: none) and (pointer: coarse) {
 
-    .selection-timeline {
+    .gallery-item:hover,
+    .gallery-card:hover,
+    .format-card:hover,
+    .category-card:hover,
+    .why-card:hover,
+    .judging-card:hover,
+    .prize-card:hover,
+    .winner-card:hover {
 
-        grid-template-columns:
-            repeat(3, 1fr);
-
+        transform: none;
     }
 
 }
 
 
-@media (max-width: 800px) {
+/* =========================================================
+   22. LANDSCAPE PHONES
+   ========================================================= */
 
-    .selection-section {
+@media (max-width: 900px)
+       and (orientation: landscape) {
 
-        padding:
-            85px 0;
+    .hero-section,
+    .hero {
 
+        padding-top:
+            92px;
+
+        padding-bottom:
+            48px;
     }
 
+    .mobile-nav {
 
-    .selection-container {
+        max-height:
+            calc(100dvh - 94px);
+    }
+
+}
+
+
+/* =========================================================
+   23. LARGE TABLET
+   768px — 991px
+   ========================================================= */
+
+@media (min-width: 768px)
+       and (max-width: 991px) {
+
+    .container,
+    .section-container,
+    .selection-container,
+    .footer-container,
+    .banner-container,
+    .sponsors-container {
 
         width:
             min(
-                calc(100% - 30px),
-                650px
+                calc(100% - 48px),
+                920px
             );
-
     }
 
+    .section {
 
-    .selection-timeline {
+        padding-top:
+            82px;
 
-        grid-template-columns:
-            repeat(2, 1fr);
-
+        padding-bottom:
+            82px;
     }
 
-
-    .selection-evaluation {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-}
-
-
-@media (max-width: 560px) {
-
-    .selection-timeline {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .selection-step {
-
-        min-height:
-            280px;
-
-    }
-
-
-    .selection-evaluation-card {
-
-        padding:
-            25px;
-
-    }
-
-
-    .selection-evaluation-card strong {
+    .section-title {
 
         font-size:
-            54px;
-
+            clamp(
+                2.5rem,
+                5vw,
+                3.6rem
+            );
     }
 
+    .format-grid,
+    .why-grid,
+    .process-grid {
 
-    .selection-note {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
 
-        align-items:
-            flex-start;
+    .judging-grid,
+    .prizes-grid {
 
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .gallery-grid {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
     }
 
 }
 
-
-@media (max-width: 480px) {
-
-    .selection-container {
-
-        width:
-            92%;
-
-    }
-
-}
 
 /* =========================================================
-   16E. FINAL RESPONSIVE SAFETY
+   24. LAPTOP
+   992px — 1199px
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media (min-width: 992px)
+       and (max-width: 1199px) {
 
-    .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .container,
+    .section-container,
+    .selection-container,
+    .footer-container,
+    .banner-container,
+    .sponsors-container {
+
+        width:
+            min(
+                calc(100% - 64px),
+                1050px
+            );
+    }
+
+    .section {
+
+        padding-top:
+            88px;
+
+        padding-bottom:
+            88px;
     }
 
     .nav-links {
+
         gap: 18px;
     }
 
-}
+    .nav-links a {
 
-
-@media (max-width: 900px) {
-
-    .site-header {
-        padding: 12px 14px;
+        font-size:
+            0.88rem;
     }
 
-    .glass-nav {
-        width: calc(100% - 4px);
+    .hero-title {
+
+        font-size:
+            clamp(
+                3.6rem,
+                6vw,
+                5.2rem
+            );
     }
 
-    .nav-links,
-    .nav-register-btn {
-        display: none;
+    .format-grid,
+    .why-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
     }
 
-    .mobile-menu-toggle {
-        display: flex;
+    .process-grid {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
     }
 
-    .categories-grid {
-        grid-template-columns: 1fr;
+    .judging-grid,
+    .prizes-grid {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
     }
 
-}
+    .gallery-grid {
 
-
-@media (max-width: 700px) {
-
-    .glass-nav {
-        min-height: 62px;
-        padding: 8px 10px 8px 16px;
-    }
-
-    .nav-brand img {
-        width: 70px;
-        height: 38px;
-    }
-
-    .section-heading h2 {
-        font-size: clamp(30px, 8vw, 42px);
-    }
-
-    .category-card {
-        min-height: 340px;
-        padding: 26px;
-    }
-
-    .category-card h3 {
-        font-size: 30px;
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
     }
 
 }
 
-
-@media (max-width: 480px) {
-
-    .site-header {
-        padding: 8px 8px;
-    }
-
-    .glass-nav {
-        width: 100%;
-        border-radius: 22px;
-    }
-
-    .category-card {
-        min-height: 310px;
-        padding: 22px;
-    }
-
-    .category-card h3 {
-        font-size: 27px;
-    }
-
-}
 
 /* =========================================================
-   18C. REDUCED MOTION
+   25. DESKTOP
+   1200px — 1439px
+   ========================================================= */
+
+@media (min-width: 1200px)
+       and (max-width: 1439px) {
+
+    .container,
+    .section-container,
+    .selection-container,
+    .footer-container,
+    .banner-container,
+    .sponsors-container {
+
+        width:
+            min(
+                calc(100% - 72px),
+                1180px
+            );
+    }
+
+    .section {
+
+        padding-top:
+            96px;
+
+        padding-bottom:
+            96px;
+    }
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                4.2rem,
+                5.5vw,
+                6.2rem
+            );
+    }
+
+    .gallery-grid {
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   26. LARGE DESKTOP
+   1440px+
+   ========================================================= */
+
+@media (min-width: 1440px) {
+
+    .container,
+    .section-container,
+    .selection-container,
+    .footer-container,
+    .banner-container,
+    .sponsors-container {
+
+        width:
+            min(
+                calc(100% - 96px),
+                1280px
+            );
+    }
+
+    .section {
+
+        padding-top:
+            112px;
+
+        padding-bottom:
+            112px;
+    }
+
+    .section-title {
+
+        font-size:
+            clamp(
+                3.2rem,
+                3.5vw,
+                4.5rem
+            );
+    }
+
+    .section-description {
+
+        font-size:
+            1.12rem;
+    }
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                5rem,
+                5vw,
+                7.5rem
+            );
+    }
+
+    .gallery-grid {
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   27. EXTRA LARGE DESKTOP
+   1800px+
+   ========================================================= */
+
+@media (min-width: 1800px) {
+
+    .container,
+    .section-container,
+    .selection-container,
+    .footer-container,
+    .banner-container,
+    .sponsors-container {
+
+        max-width:
+            1440px;
+    }
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                6rem,
+                5vw,
+                8rem
+            );
+    }
+
+}
+
+
+/* =========================================================
+   28. SMALL PHONES
+   ≤399px
+   ========================================================= */
+
+@media (max-width: 399px) {
+
+    .container,
+    .section-container,
+    .selection-container,
+    .footer-container,
+    .banner-container,
+    .sponsors-container {
+
+        width:
+            calc(100% - 28px);
+    }
+
+    .section {
+
+        padding-top:
+            58px;
+
+        padding-bottom:
+            58px;
+    }
+
+    .glass-nav {
+
+        min-height:
+            60px;
+
+        padding-left:
+            12px;
+
+        padding-right:
+            8px;
+    }
+
+    .hero-section,
+    .hero {
+
+        padding-top:
+            102px;
+
+        padding-bottom:
+            54px;
+    }
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                2.55rem,
+                13.5vw,
+                3.5rem
+            );
+    }
+
+    .hero-description {
+
+        font-size:
+            0.9rem;
+    }
+
+    .hero-facts {
+
+        gap:
+            12px;
+    }
+
+    .hero-fact strong {
+
+        font-size:
+            0.86rem;
+    }
+
+    .hero-fact span {
+
+        font-size:
+            0.68rem;
+    }
+
+    .gallery-grid {
+
+        gap:
+            7px;
+    }
+
+    .mobile-nav {
+
+        left:
+            8px;
+
+        right:
+            8px;
+
+        border-radius:
+            20px;
+    }
+
+}
+
+
+/* =========================================================
+   29. ACCESSIBILITY — KEYBOARD FOCUS
+   ========================================================= */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+
+    outline:
+        2px solid
+        var(--color-primary);
+
+    outline-offset:
+        4px;
+}
+
+
+/* =========================================================
+   30. REDUCED MOTION
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
+    html {
+
+        scroll-behavior:
+            auto !important;
+    }
 
     *,
     *::before,
     *::after {
 
-        scroll-behavior: auto !important;
+        animation-duration:
+            0.01ms !important;
 
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
+        animation-iteration-count:
+            1 !important;
 
-        transition-duration: 0.01ms !important;
-
+        transition-duration:
+            0.01ms !important;
     }
 
 }
+
 
 /* =========================================================
-   MOBILE NAVIGATION — FINAL FIX
+   31. PRINT
    ========================================================= */
 
-@media (max-width: 900px) {
+@media print {
 
-    .site-header {
-        width: 100%;
-        padding: 10px 12px;
-        box-sizing: border-box;
+    .site-header,
+    .mobile-nav,
+    .mobile-menu-toggle,
+    .slider-prev,
+    .slider-next,
+    .slider-dots,
+    .banner-control,
+    .hero-actions,
+    .gallery-lightbox {
+
+        display:
+            none !important;
     }
 
-    .glass-nav {
-        width: 100%;
-        max-width: 100%;
-        min-height: 62px;
-        margin: 0;
-        box-sizing: border-box;
+    .section {
+
+        padding-top:
+            30px;
+
+        padding-bottom:
+            30px;
     }
 
-    .nav-links,
-    .nav-register-btn {
-        display: none !important;
-    }
+    body {
 
-    .mobile-menu-toggle {
-        display: flex !important;
-
-        width: 44px;
-        height: 44px;
-
-        padding: 0;
-
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-
-        gap: 5px;
-
-        border: 0;
-        background: transparent;
-
-        cursor: pointer;
-        flex-shrink: 0;
-    }
-
-    .mobile-menu-toggle span {
-        display: block;
-
-        width: 22px;
-        height: 2px;
-
-        background: var(--color-black);
-
-        border-radius: 10px;
-
-        transition: var(--transition);
-    }
-
-    /* Hamburger → X */
-
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-    }
-
-
-    /* Mobile dropdown */
-
-    .mobile-nav {
-        display: flex;
-
-        position: fixed;
-
-        top: 82px;
-        left: 12px;
-        right: 12px;
-
-        width: auto;
-        max-height: calc(100vh - 100px);
-
-        padding: 20px;
-
-        flex-direction: column;
-        gap: 6px;
-
-        overflow-y: auto;
-
-        background: rgba(255,255,255,0.96);
-
-        border: 1px solid rgba(0,0,0,0.08);
-
-        border-radius: 24px;
-
-        box-shadow:
-            0 20px 60px rgba(0,0,0,0.15);
-
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-
-        opacity: 0;
-        visibility: hidden;
-
-        transform: translateY(-12px);
-
-        pointer-events: none;
-
-        transition:
-            opacity 0.3s ease,
-            transform 0.3s ease,
-            visibility 0.3s ease;
-
-        z-index: 999;
-    }
-
-
-    .mobile-nav.active {
-        opacity: 1;
-        visibility: visible;
-
-        transform: translateY(0);
-
-        pointer-events: auto;
-    }
-
-
-    .mobile-nav a {
-        display: flex;
-
-        align-items: center;
-
-        min-height: 48px;
-
-        padding: 0 16px;
-
-        border-radius: 14px;
-
-        color: var(--color-black);
-
-        font-size: 14px;
-        font-weight: 600;
-
-        text-decoration: none;
-
-        transition:
-            background 0.2s ease,
-            color 0.2s ease;
-    }
-
-
-    .mobile-nav a:hover {
-        background: rgba(32,173,212,0.10);
-        color: var(--color-primary);
-    }
-
-
-    .mobile-nav .mobile-register-btn {
-        margin-top: 8px;
-
-        justify-content: center;
-
-        background: var(--color-black);
-        color: var(--color-white);
+        background:
+            #ffffff !important;
     }
 
 }
-
-/* =========================================================
-   MOBILE GRID SAFETY
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-    .categories-grid,
-    .gallery-grid,
-    .judges-grid,
-    .winners-grid,
-    .sponsors-grid,
-    .prizes-grid,
-    .process-grid {
-        width: 100%;
-        max-width: 100%;
-        grid-template-columns: 1fr;
-    }
-
-
-    .category-card,
-    .judge-card,
-    .winner-card,
-    .prize-card,
-    .process-card,
-    .sponsor-card {
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-    }
-
-
-    .section-container,
-    .container,
-    .section-inner {
-        width: 100%;
-        max-width: 100%;
-    }
-
-}
-
