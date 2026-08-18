@@ -2006,3 +2006,109 @@ select:focus-visible {
     }
 
 }
+
+/* =========================================================
+   KCYF MOBILE PERFORMANCE TEST
+   TEMPORARY DIAGNOSTIC VERSION
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    /* -----------------------------------------
+       1. NEVER HIDE REVEAL CONTENT
+       ----------------------------------------- */
+
+    .reveal,
+    .reveal.revealed {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+
+    /* -----------------------------------------
+       2. DISABLE EXPENSIVE HOVER TRANSFORMS
+       ----------------------------------------- */
+
+    .gallery-card,
+    .gallery-item,
+    .format-card,
+    .category-card,
+    .why-card,
+    .judging-card,
+    .prize-card,
+    .winner-card,
+    .process-card,
+    .selection-step,
+    .sponsor-card {
+
+        transform: none !important;
+
+        transition:
+            opacity 0.2s ease !important;
+    }
+
+
+    /* -----------------------------------------
+       3. REDUCE HEAVY BLUR ON MOBILE
+       ----------------------------------------- */
+
+    .glass-nav,
+    .mobile-nav {
+
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+    }
+
+
+    /* -----------------------------------------
+       4. REDUCE HEAVY SHADOW PAINTING
+       ----------------------------------------- */
+
+    .mobile-nav {
+
+        box-shadow:
+            0 12px 35px
+            rgba(0,0,0,0.12) !important;
+    }
+
+
+    /* -----------------------------------------
+       5. IMAGES SHOULD RENDER NORMALLY
+       ----------------------------------------- */
+
+    img {
+
+        transform: none;
+
+        backface-visibility: visible;
+
+        -webkit-backface-visibility: visible;
+    }
+
+
+    /* -----------------------------------------
+       6. STOP UNNECESSARY ANIMATION WORK
+       ----------------------------------------- */
+
+    .hero *,
+    .official-banners-section *,
+    .about-section *,
+    .format-section *,
+    .categories-section *,
+    .why-section *,
+    .process-section *,
+    .timeline-section *,
+    .judging-section *,
+    .prizes-section *,
+    .winners-section *,
+    .gallery-section *,
+    .sponsors-section *,
+    .faq-section *,
+    .registration-section * {
+
+        animation-delay: 0s;
+    }
+
+}
