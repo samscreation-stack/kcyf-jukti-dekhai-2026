@@ -825,276 +825,37 @@ function initSmoothNavigation() {
    - Give iPhone Safari more rendering time
    - Keep existing reveal CSS/animations
    ========================================================= */
-
 function initScrollReveal() {
+
+    /*
+     * PERFORMANCE-FIRST MODE
+     *
+     * Do NOT hide elements and wait for
+     * IntersectionObserver on mobile Safari.
+     *
+     * The CSS already keeps everything visible.
+     */
 
     const revealElements =
         document.querySelectorAll(".reveal");
-
-
-    /* -----------------------------------------------------
-       SAFETY CHECK
-       ----------------------------------------------------- */
 
     if (!revealElements.length) {
         return;
     }
 
-
-    /* -----------------------------------------------------
-       REDUCED MOTION
-       ----------------------------------------------------- */
-
-    const reduceMotion =
-        window.matchMedia &&
-        window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
-
-
-    if (reduceMotion) {
-
-        revealElements.forEach(element => {
-
-            element.classList.add("revealed");
-
-        });
-
-        return;
-    }
-
-
-    /* -----------------------------------------------------
-       FALLBACK
-       ----------------------------------------------------- */
-
-    if (!("IntersectionObserver" in window)) {
-
-        revealElements.forEach(element => {
-
-            element.classList.add("revealed");
-
-        });
-
-        return;
-    }
-
-
-    /* -----------------------------------------------------
-       MOBILE DETECTION
-       ----------------------------------------------------- */
-
-    const isMobile =
-        window.matchMedia(
-            "(max-width: 900px)"
-        ).matches;
-
-
-    /* -----------------------------------------------------
-       OBSERVER SETTINGS
-       -----------------------------------------------------
-
-       We intentionally reveal elements BEFORE they enter
-       the screen.
-
-       Mobile gets a larger preload distance because
-       iPhone Safari needs more time to render content.
-       ----------------------------------------------------- */
-
-    const rootMargin =
-        isMobile
-            ? "0px 0px 350px 0px"
-            : "0px 0px 250px 0px";
-
-
-    const observer =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-
-
-                    const element =
-                        entry.target;
-
-
-                    /* -------------------------------------
-                       REVEAL
-                       ------------------------------------- */
-
-                    element.classList.add(
-                        "revealed"
-                    );
-
-
-                    /* -------------------------------------
-                       STOP OBSERVING
-                       ------------------------------------- */
-
-                    observer.unobserve(
-                        element
-                    );
-
-                });
-
-            },
-            {
-                root: null,
-
-                rootMargin: rootMargin,
-
-                threshold: 0
-            }
-        );
-
-
-    /* -----------------------------------------------------
-       OBSERVE ELEMENTS
-       ----------------------------------------------------- */
+    /*
+     * Make absolutely sure every reveal element
+     * is visible immediately.
+     */
 
     revealElements.forEach(element => {
 
-        /*
-         * If the element is already inside or close to
-         * the viewport, reveal it immediately.
-         */
+        element.classList.add("revealed");
 
-        const rect =
-            element.getBoundingClientRect();
-
-
-        const preloadDistance =
-            isMobile
-                ? 500
-                : 350;
-
-
-        const isNearViewport =
-            rect.top <
-                window.innerHeight +
-                preloadDistance &&
-            rect.bottom >
-                -preloadDistance;
-
-
-        if (isNearViewport) {
-
-            element.classList.add(
-                "revealed"
-            );
-
-            return;
-        }
-
-
-        observer.observe(
-            element
-        );
+        element.style.opacity = "1";
+        element.style.transform = "none";
 
     });
-
-
-    /* -----------------------------------------------------
-       SAFETY PASS
-       -----------------------------------------------------
-
-       Safari can occasionally delay IntersectionObserver
-       callbacks while scrolling quickly.
-
-       This lightweight check catches elements that have
-       entered the preload area.
-       ----------------------------------------------------- */
-
-    let ticking = false;
-
-
-    function checkNearbyElements() {
-
-        if (ticking) {
-            return;
-        }
-
-
-        ticking = true;
-
-
-        requestAnimationFrame(() => {
-
-            const preloadDistance =
-                isMobile
-                    ? 600
-                    : 400;
-
-
-            revealElements.forEach(
-                element => {
-
-                    if (
-                        element.classList.contains(
-                            "revealed"
-                        )
-                    ) {
-                        return;
-                    }
-
-
-                    const rect =
-                        element.getBoundingClientRect();
-
-
-                    if (
-                        rect.top <
-                            window.innerHeight +
-                            preloadDistance
-                    ) {
-
-                        element.classList.add(
-                            "revealed"
-                        );
-
-                        observer.unobserve(
-                            element
-                        );
-
-                    }
-
-                }
-            );
-
-
-            ticking = false;
-
-        });
-
-    }
-
-
-    /* -----------------------------------------------------
-       SCROLL LISTENER
-       -----------------------------------------------------
-
-       Passive = browser can keep scrolling smoothly.
-       requestAnimationFrame prevents excessive work.
-       ----------------------------------------------------- */
-
-    window.addEventListener(
-        "scroll",
-        checkNearbyElements,
-        {
-            passive: true
-        }
-    );
-
-
-    /* -----------------------------------------------------
-       INITIAL CHECK
-       ----------------------------------------------------- */
-
-    checkNearbyElements();
 
 }
 /* =========================================================
