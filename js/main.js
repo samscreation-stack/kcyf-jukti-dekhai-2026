@@ -1048,73 +1048,56 @@ function initActiveNavigation() {
 
 
 /* =========================================================
-   09. DYNAMIC IMAGE GALLERY
-   =========================================================
+   09. DYNAMIC IMAGE GALLERY — OPTIMIZED VERSION
+   ---------------------------------------------------------
+   Automatic gallery discovery without manually listing images.
 
-   IMPORTANT:
-
-   Add images to:
+   Put photos inside:
 
    assets/gallery/
 
-   Use:
+   Naming:
 
    gallery-01.jpg
    gallery-02.jpg
    gallery-03.jpg
    ...
-   gallery-100.jpg
-   gallery-101.jpg
-   ...
 
-   No HTML editing is required.
-
-   Missing images are ignored.
-
-   The gallery can support hundreds of images.
+   Features:
+   - No HTML editing required
+   - No JSON/manifest required
+   - No 500 simultaneous requests
+   - Progressive discovery
+   - Mobile/iPhone friendly
+   - Load More support
+   - View All support
+   - Lightbox
+   - Touch swipe
    ========================================================= */
 
 function initGallery() {
-
 
     /* =====================================================
        ELEMENTS
        ===================================================== */
 
     const galleryGrid =
-        document.getElementById(
-            "galleryGrid"
-        );
-
+        document.getElementById("galleryGrid");
 
     const galleryCount =
-        document.getElementById(
-            "galleryCount"
-        );
-
+        document.getElementById("galleryCount");
 
     const galleryLoadMore =
-        document.getElementById(
-            "galleryLoadMore"
-        );
-
+        document.getElementById("galleryLoadMore");
 
     const galleryLoadMoreWrap =
-        document.getElementById(
-            "galleryLoadMoreWrap"
-        );
-
+        document.getElementById("galleryLoadMoreWrap");
 
     const galleryEmpty =
-        document.getElementById(
-            "galleryEmpty"
-        );
-
+        document.getElementById("galleryEmpty");
 
     const galleryViewAll =
-        document.getElementById(
-            "galleryViewAll"
-        );
+        document.getElementById("galleryViewAll");
 
 
     /* =====================================================
@@ -1122,94 +1105,99 @@ function initGallery() {
        ===================================================== */
 
     const lightbox =
-        document.getElementById(
-            "galleryLightbox"
-        );
-
+        document.getElementById("galleryLightbox");
 
     const lightboxImage =
-        document.getElementById(
-            "galleryLightboxImage"
-        );
-
+        document.getElementById("galleryLightboxImage");
 
     const lightboxClose =
-        document.getElementById(
-            "galleryLightboxClose"
-        );
-
+        document.getElementById("galleryLightboxClose");
 
     const lightboxPrev =
-        document.getElementById(
-            "galleryLightboxPrev"
-        );
-
+        document.getElementById("galleryLightboxPrev");
 
     const lightboxNext =
-        document.getElementById(
-            "galleryLightboxNext"
-        );
-
+        document.getElementById("galleryLightboxNext");
 
     const lightboxCounter =
-        document.getElementById(
-            "galleryLightboxCounter"
-        );
+        document.getElementById("galleryLightboxCounter");
 
 
     /* =====================================================
        SAFETY CHECK
        ===================================================== */
 
-    if (
-        !galleryGrid
-    ) {
-
+    if (!galleryGrid) {
         return;
-
     }
 
 
     /* =====================================================
-       GALLERY SETTINGS
+       SETTINGS
        ===================================================== */
 
     const GALLERY_FOLDER =
         "assets/gallery/";
 
-
     const GALLERY_PREFIX =
         "gallery-";
-
 
     const GALLERY_EXTENSION =
         ".jpg";
 
 
     /*
-     * Maximum supported gallery images.
+     * Number of images checked in one batch.
      *
-     * 500 is more than enough for the event website.
+     * IMPORTANT:
+     * We no longer check hundreds of images at once.
      */
 
-    const MAX_IMAGES =
-        500;
+    const BATCH_SIZE = 15;
 
 
     /*
-     * Number shown initially.
+     * Maximum possible image number.
+     *
+     * This is only a safety limit.
+     *
+     * It does NOT create 500 requests at once.
      */
 
-    const INITIAL_VISIBLE =
-        12;
+    const MAX_IMAGES = 500;
 
 
     /*
-     * Number added per Load More.
+     * How many missing files in a row
+     * should make us assume the gallery has ended.
+     *
+     * Example:
+     *
+     * gallery-01 → exists
+     * gallery-02 → exists
+     * gallery-03 → exists
+     * gallery-04 → missing
+     * gallery-05 → missing
+     * gallery-06 → missing
+     *
+     * We don't need to continue forever.
      */
 
-    const LOAD_MORE_AMOUNT =
-        12;
+    const CONSECUTIVE_MISSING_LIMIT = 15;
+
+
+    /*
+     * Number visible initially.
+     */
+
+    const INITIAL_VISIBLE = 12;
+
+
+    /*
+     * Number added when Load More is clicked.
+     */
+
+    const LOAD_MORE_AMOUNT = 12;
 
 
     /* =====================================================
@@ -1218,13 +1206,17 @@ function initGallery() {
 
     let galleryImages = [];
 
+    let visibleCount = INITIAL_VISIBLE;
 
-    let visibleCount =
-        INITIAL_VISIBLE;
+    let currentLightboxIndex = 0;
 
+    let nextImageNumber = 1;
 
-    let currentLightboxIndex =
-        0;
+    let consecutiveMissing = 0;
+
+    let discoveryFinished = false;
+
+    let discoveryRunning = false;
 
 
     /* =====================================================
@@ -1236,10 +1228,7 @@ function initGallery() {
         return (
             GALLERY_FOLDER +
             GALLERY_PREFIX +
-            String(number).padStart(
-                2,
-                "0"
-            ) +
+            String(number).padStart(2, "0") +
             GALLERY_EXTENSION
         );
 
@@ -1247,116 +1236,63 @@ function initGallery() {
 
 
     /* =====================================================
-       CHECK WHETHER IMAGE EXISTS
+       CHECK ONE IMAGE
        ===================================================== */
 
     function checkImage(src) {
 
-        return new Promise(
-            resolve => {
+        return new Promise(resolve => {
 
-                const image =
-                    new Image();
+            const image = new Image();
 
-
-                image.onload =
-                    () => {
-
-                        resolve({
-                            exists: true,
-                            src: src
-                        });
-
-                    };
+            let completed = false;
 
 
-                image.onerror =
-                    () => {
+            function finish(exists) {
 
-                        resolve({
-                            exists: false,
-                            src: src
-                        });
+                if (completed) {
+                    return;
+                }
 
-                    };
+                completed = true;
 
-
-                image.src =
-                    src;
+                resolve({
+                    exists,
+                    src
+                });
 
             }
-        );
+
+
+            image.onload = () => {
+                finish(true);
+            };
+
+
+            image.onerror = () => {
+                finish(false);
+            };
+
+
+            image.src = src;
+
+        });
 
     }
 
 
     /* =====================================================
-       FIND AVAILABLE IMAGES
-       =====================================================
-
-       The browser cannot directly list files inside
-       a folder on a static website.
-
-       Therefore we test the expected filenames.
-
-       Existing images are added.
-       Missing images are ignored.
-
-       So there are NEVER blank cards.
+       UPDATE GALLERY COUNT
        ===================================================== */
 
-    async function discoverImages() {
+    function updateGalleryCount() {
 
-        const imageChecks = [];
-
-
-        for (
-            let number = 1;
-            number <= MAX_IMAGES;
-            number++
-        ) {
-
-            imageChecks.push(
-                checkImage(
-                    getImagePath(
-                        number
-                    )
-                )
-            );
-
+        if (!galleryCount) {
+            return;
         }
 
-
-        const results =
-            await Promise.all(
-                imageChecks
-            );
-
-
-        return results
-            .map(
-                (result, index) => {
-
-                    if (
-                        !result.exists
-                    ) {
-                        return null;
-                    }
-
-
-                    return {
-
-                        number:
-                            index + 1,
-
-                        src:
-                            result.src
-
-                    };
-
-                }
-            )
-            .filter(Boolean);
+        galleryCount.textContent =
+            galleryImages.length;
 
     }
 
@@ -1365,19 +1301,13 @@ function initGallery() {
        CREATE GALLERY CARD
        ===================================================== */
 
-    function createGalleryCard(
-        image,
-        index
-    ) {
+    function createGalleryCard(image, index) {
 
         const card =
-            document.createElement(
-                "button"
-            );
+            document.createElement("button");
 
 
-        card.type =
-            "button";
+        card.type = "button";
 
 
         card.className =
@@ -1386,20 +1316,16 @@ function initGallery() {
 
         card.setAttribute(
             "aria-label",
-            `View gallery photo ${
-                index + 1
-            }`
+            `View gallery photo ${index + 1}`
         );
 
 
-        /* -----------------------------------------------
+        /* -------------------------------------------------
            IMAGE
-           ----------------------------------------------- */
+           ------------------------------------------------- */
 
         const imageElement =
-            document.createElement(
-                "img"
-            );
+            document.createElement("img");
 
 
         imageElement.src =
@@ -1407,41 +1333,38 @@ function initGallery() {
 
 
         imageElement.alt =
-            `যুক্তি দেখাই gallery photo ${
-                index + 1
-            }`;
+            `যুক্তি দেখাই gallery photo ${index + 1}`;
 
 
-        imageElement.loading =
-            "lazy";
+        /*
+         * Browser handles the actual loading.
+         *
+         * We don't force every image to load immediately.
+         */
+
+        imageElement.loading = "lazy";
+
+        imageElement.decoding = "async";
 
 
-        imageElement.decoding =
-            "async";
-
-
-        /* -----------------------------------------------
+        /* -------------------------------------------------
            OVERLAY
-           ----------------------------------------------- */
+           ------------------------------------------------- */
 
         const overlay =
-            document.createElement(
-                "span"
-            );
+            document.createElement("span");
 
 
         overlay.className =
             "gallery-card-overlay";
 
 
-        /* -----------------------------------------------
+        /* -------------------------------------------------
            NUMBER
-           ----------------------------------------------- */
+           ------------------------------------------------- */
 
         const number =
-            document.createElement(
-                "span"
-            );
+            document.createElement("span");
 
 
         number.className =
@@ -1449,22 +1372,15 @@ function initGallery() {
 
 
         number.textContent =
-            String(
-                index + 1
-            ).padStart(
-                2,
-                "0"
-            );
+            String(index + 1).padStart(2, "0");
 
 
-        /* -----------------------------------------------
+        /* -------------------------------------------------
            VIEW LABEL
-           ----------------------------------------------- */
+           ------------------------------------------------- */
 
         const view =
-            document.createElement(
-                "span"
-            );
+            document.createElement("span");
 
 
         view.className =
@@ -1475,44 +1391,28 @@ function initGallery() {
             "VIEW";
 
 
-        /* -----------------------------------------------
-           BUILD CARD
-           ----------------------------------------------- */
+        /* -------------------------------------------------
+           BUILD
+           ------------------------------------------------- */
 
-        overlay.appendChild(
-            number
-        );
+        overlay.appendChild(number);
 
+        overlay.appendChild(view);
 
-        overlay.appendChild(
-            view
-        );
+        card.appendChild(imageElement);
 
-
-        card.appendChild(
-            imageElement
-        );
+        card.appendChild(overlay);
 
 
-        card.appendChild(
-            overlay
-        );
+        /* -------------------------------------------------
+           LIGHTBOX
+           ------------------------------------------------- */
 
+        card.addEventListener("click", () => {
 
-        /* -----------------------------------------------
-           OPEN LIGHTBOX
-           ----------------------------------------------- */
+            openLightbox(index);
 
-        card.addEventListener(
-            "click",
-            () => {
-
-                openLightbox(
-                    index
-                );
-
-            }
-        );
+        });
 
 
         return card;
@@ -1526,8 +1426,7 @@ function initGallery() {
 
     function renderGallery() {
 
-        galleryGrid.innerHTML =
-            "";
+        galleryGrid.innerHTML = "";
 
 
         const imagesToShow =
@@ -1538,10 +1437,7 @@ function initGallery() {
 
 
         imagesToShow.forEach(
-            (
-                image,
-                index
-            ) => {
+            (image, index) => {
 
                 galleryGrid.appendChild(
                     createGalleryCard(
@@ -1554,31 +1450,330 @@ function initGallery() {
         );
 
 
-        /* -----------------------------------------------
-           PHOTO COUNT
-           ----------------------------------------------- */
-
-        if (galleryCount) {
-
-            galleryCount.textContent =
-                galleryImages.length;
-
-        }
+        updateGalleryCount();
 
 
-        /* -----------------------------------------------
-           LOAD MORE
-           ----------------------------------------------- */
+        /* -------------------------------------------------
+           EMPTY STATE
+           ------------------------------------------------- */
 
         if (
-            galleryLoadMoreWrap
+            galleryImages.length === 0 &&
+            discoveryFinished
         ) {
 
-            galleryLoadMoreWrap.hidden =
-                visibleCount >=
-                galleryImages.length;
+            galleryGrid.hidden = true;
+
+
+            if (galleryEmpty) {
+                galleryEmpty.hidden = false;
+            }
+
+        } else {
+
+            galleryGrid.hidden = false;
+
+
+            if (galleryEmpty) {
+                galleryEmpty.hidden = true;
+            }
 
         }
+
+
+        /* -------------------------------------------------
+           LOAD MORE
+           ------------------------------------------------- */
+
+        if (galleryLoadMoreWrap) {
+
+            /*
+             * Hide Load More when:
+             *
+             * - all currently discovered images are visible
+             * AND
+             * - discovery has finished
+             */
+
+            if (
+                discoveryFinished &&
+                visibleCount >= galleryImages.length
+            ) {
+
+                galleryLoadMoreWrap.hidden = true;
+
+            } else {
+
+                galleryLoadMoreWrap.hidden = false;
+
+            }
+
+        }
+
+
+        /* -------------------------------------------------
+           VIEW ALL
+           ------------------------------------------------- */
+
+        if (galleryViewAll) {
+
+            galleryViewAll.hidden =
+                galleryImages.length === 0;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ADD NEW DISCOVERED IMAGE
+       ===================================================== */
+
+    function addDiscoveredImage(src, number) {
+
+        /*
+         * Prevent duplicates.
+         */
+
+        const alreadyExists =
+            galleryImages.some(
+                image =>
+                    image.src === src
+            );
+
+
+        if (alreadyExists) {
+            return;
+        }
+
+
+        galleryImages.push({
+
+            number: number,
+
+            src: src
+
+        });
+
+
+        /*
+         * If the gallery was previously empty,
+         * immediately show the first image.
+         */
+
+        if (galleryImages.length === 1) {
+
+            visibleCount =
+                Math.min(
+                    INITIAL_VISIBLE,
+                    galleryImages.length
+                );
+
+            renderGallery();
+
+        }
+
+
+        /*
+         * If more images are discovered while
+         * the user already has the gallery open,
+         * update the count without aggressively
+         * rebuilding the page.
+         */
+
+        updateGalleryCount();
+
+    }
+
+
+    /* =====================================================
+       PROGRESSIVE IMAGE DISCOVERY
+       ===================================================== */
+
+    async function discoverNextBatch() {
+
+        /*
+         * Prevent duplicate discovery loops.
+         */
+
+        if (
+            discoveryRunning ||
+            discoveryFinished
+        ) {
+
+            return;
+
+        }
+
+
+        discoveryRunning = true;
+
+
+        try {
+
+            const checks = [];
+
+
+            /*
+             * Create only a SMALL number of requests.
+             */
+
+            for (
+                let i = 0;
+                i < BATCH_SIZE &&
+                nextImageNumber <= MAX_IMAGES;
+                i++
+            ) {
+
+                const number =
+                    nextImageNumber++;
+
+
+                checks.push({
+
+                    number,
+
+                    promise:
+                        checkImage(
+                            getImagePath(
+                                number
+                            )
+                        )
+
+                });
+
+            }
+
+
+            /*
+             * Wait only for this small batch.
+             */
+
+            const results =
+                await Promise.all(
+                    checks.map(
+                        item =>
+                            item.promise.then(
+                                result => ({
+                                    ...result,
+                                    number:
+                                        item.number
+                                })
+                            )
+                    )
+                );
+
+
+            /*
+             * Process results.
+             */
+
+            results.forEach(result => {
+
+                if (result.exists) {
+
+                    consecutiveMissing = 0;
+
+
+                    addDiscoveredImage(
+                        result.src,
+                        result.number
+                    );
+
+                } else {
+
+                    consecutiveMissing++;
+
+                }
+
+            });
+
+
+            /*
+             * Stop if enough consecutive
+             * images are missing.
+             *
+             * This prevents endless searching.
+             */
+
+            if (
+                consecutiveMissing >=
+                CONSECUTIVE_MISSING_LIMIT
+            ) {
+
+                discoveryFinished = true;
+
+            }
+
+
+            /*
+             * Stop at hard safety limit.
+             */
+
+            if (
+                nextImageNumber >
+                MAX_IMAGES
+            ) {
+
+                discoveryFinished = true;
+
+            }
+
+
+            /*
+             * Update UI.
+             */
+
+            renderGallery();
+
+
+            /*
+             * Continue in the background.
+             *
+             * setTimeout gives the browser time
+             * to render/paint between batches.
+             */
+
+            if (!discoveryFinished) {
+
+                setTimeout(
+                    () => {
+
+                        discoveryRunning = false;
+
+                        discoverNextBatch();
+
+                    },
+                    100
+                );
+
+                return;
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "KCYF Gallery discovery error:",
+                error
+            );
+
+            discoveryFinished = true;
+
+        }
+
+
+        discoveryRunning = false;
+
+
+        renderGallery();
+
+
+        console.log(
+            "KCYF Gallery:",
+            galleryImages.length,
+            "images found."
+        );
 
     }
 
@@ -1597,7 +1792,31 @@ function initGallery() {
                     LOAD_MORE_AMOUNT;
 
 
+                visibleCount =
+                    Math.min(
+                        visibleCount,
+                        galleryImages.length
+                    );
+
+
                 renderGallery();
+
+
+                /*
+                 * If the user has reached all currently
+                 * discovered photos and discovery is still
+                 * running, continue discovering.
+                 */
+
+                if (
+                    !discoveryFinished &&
+                    visibleCount >=
+                        galleryImages.length
+                ) {
+
+                    discoverNextBatch();
+
+                }
 
             }
         );
@@ -1623,9 +1842,24 @@ function initGallery() {
 
 
                 galleryGrid.scrollIntoView({
+
                     behavior: "smooth",
+
                     block: "start"
+
                 });
+
+
+                /*
+                 * Continue discovering more images
+                 * if the scanner hasn't finished.
+                 */
+
+                if (!discoveryFinished) {
+
+                    discoverNextBatch();
+
+                }
 
             }
         );
@@ -1634,7 +1868,7 @@ function initGallery() {
 
 
     /* =====================================================
-       10. GALLERY LIGHTBOX
+       LIGHTBOX
        ===================================================== */
 
     function openLightbox(index) {
@@ -1697,6 +1931,11 @@ function initGallery() {
             ];
 
 
+        if (!image) {
+            return;
+        }
+
+
         lightboxImage.src =
             image.src;
 
@@ -1712,15 +1951,11 @@ function initGallery() {
             lightboxCounter.textContent =
                 `${String(
                     currentLightboxIndex + 1
-                ).padStart(
-                    2,
-                    "0"
-                )} / ${String(
-                    galleryImages.length
-                ).padStart(
-                    2,
-                    "0"
-                )}`;
+                ).padStart(2, "0")} / ${
+                    String(
+                        galleryImages.length
+                    ).padStart(2, "0")
+                }`;
 
         }
 
@@ -1757,7 +1992,7 @@ function initGallery() {
 
 
     /* =====================================================
-       LIGHTBOX CLOSE BUTTON
+       CLOSE BUTTON
        ===================================================== */
 
     if (lightboxClose) {
@@ -1771,7 +2006,7 @@ function initGallery() {
 
 
     /* =====================================================
-       LIGHTBOX NEXT
+       NEXT
        ===================================================== */
 
     if (lightboxNext) {
@@ -1783,7 +2018,9 @@ function initGallery() {
                 if (
                     !galleryImages.length
                 ) {
+
                     return;
+
                 }
 
 
@@ -1804,7 +2041,7 @@ function initGallery() {
 
 
     /* =====================================================
-       LIGHTBOX PREVIOUS
+       PREVIOUS
        ===================================================== */
 
     if (lightboxPrev) {
@@ -1816,7 +2053,9 @@ function initGallery() {
                 if (
                     !galleryImages.length
                 ) {
+
                     return;
+
                 }
 
 
@@ -1838,7 +2077,7 @@ function initGallery() {
 
 
     /* =====================================================
-       LIGHTBOX BACKDROP
+       BACKDROP CLOSE
        ===================================================== */
 
     if (lightbox) {
@@ -1848,8 +2087,7 @@ function initGallery() {
             event => {
 
                 if (
-                    event.target ===
-                    lightbox
+                    event.target === lightbox
                 ) {
 
                     closeLightbox();
@@ -1863,7 +2101,7 @@ function initGallery() {
 
 
     /* =====================================================
-       LIGHTBOX KEYBOARD CONTROLS
+       KEYBOARD CONTROLS
        ===================================================== */
 
     document.addEventListener(
@@ -1896,9 +2134,7 @@ function initGallery() {
             ) {
 
                 if (lightboxNext) {
-
                     lightboxNext.click();
-
                 }
 
             }
@@ -1909,9 +2145,7 @@ function initGallery() {
             ) {
 
                 if (lightboxPrev) {
-
                     lightboxPrev.click();
-
                 }
 
             }
@@ -1921,15 +2155,12 @@ function initGallery() {
 
 
     /* =====================================================
-       LIGHTBOX TOUCH SWIPE
+       TOUCH SWIPE
        ===================================================== */
 
-    let touchStartX =
-        0;
+    let touchStartX = 0;
 
-
-    let touchEndX =
-        0;
+    let touchEndX = 0;
 
 
     if (lightbox) {
@@ -1939,9 +2170,8 @@ function initGallery() {
             event => {
 
                 touchStartX =
-                    event.changedTouches[
-                        0
-                    ].screenX;
+                    event.changedTouches[0]
+                        .screenX;
 
             },
             {
@@ -1955,9 +2185,8 @@ function initGallery() {
             event => {
 
                 touchEndX =
-                    event.changedTouches[
-                        0
-                    ].screenX;
+                    event.changedTouches[0]
+                        .screenX;
 
 
                 const difference =
@@ -1966,9 +2195,7 @@ function initGallery() {
 
 
                 if (
-                    Math.abs(
-                        difference
-                    ) < 50
+                    Math.abs(difference) < 50
                 ) {
 
                     return;
@@ -2002,126 +2229,52 @@ function initGallery() {
 
 
     /* =====================================================
-       INITIALIZE GALLERY
+       INITIAL GALLERY STATE
        ===================================================== */
 
-    async function initializeGallery() {
-
-        galleryGrid.setAttribute(
-            "aria-busy",
-            "true"
-        );
+    galleryGrid.setAttribute(
+        "aria-busy",
+        "true"
+    );
 
 
-        galleryImages =
-            await discoverImages();
-
-
-        galleryGrid.removeAttribute(
-            "aria-busy"
-        );
-
-
-        console.log(
-            "KCYF Gallery:",
-            galleryImages.length,
-            "images found."
-        );
-
-
-        /* -----------------------------------------------
-           NO IMAGES
-           ----------------------------------------------- */
-
-        if (
-            galleryImages.length === 0
-        ) {
-
-            galleryGrid.hidden =
-                true;
-
-
-            if (
-                galleryLoadMoreWrap
-            ) {
-
-                galleryLoadMoreWrap.hidden =
-                    true;
-
-            }
-
-
-            if (
-                galleryViewAll
-            ) {
-
-                galleryViewAll.hidden =
-                    true;
-
-            }
-
-
-            if (galleryEmpty) {
-
-                galleryEmpty.hidden =
-                    false;
-
-            }
-
-
-            if (galleryCount) {
-
-                galleryCount.textContent =
-                    "0";
-
-            }
-
-
-            return;
-
-        }
-
-
-        /* -----------------------------------------------
-           IMAGES FOUND
-           ----------------------------------------------- */
-
-        galleryGrid.hidden =
-            false;
-
-
-        if (galleryEmpty) {
-
-            galleryEmpty.hidden =
-                true;
-
-        }
-
-
-        if (galleryViewAll) {
-
-            galleryViewAll.hidden =
-                false;
-
-        }
-
-
-        visibleCount =
-            Math.min(
-                INITIAL_VISIBLE,
-                galleryImages.length
-            );
-
-
-        renderGallery();
-
+    if (galleryEmpty) {
+        galleryEmpty.hidden = true;
     }
 
 
-    initializeGallery();
+    if (galleryLoadMoreWrap) {
+        galleryLoadMoreWrap.hidden = true;
+    }
+
+
+    if (galleryViewAll) {
+        galleryViewAll.hidden = true;
+    }
+
+
+    /*
+     * Start discovery AFTER the browser gets a chance
+     * to render the main page.
+     *
+     * This is particularly helpful on mobile Safari.
+     */
+
+    requestAnimationFrame(() => {
+
+        setTimeout(() => {
+
+            galleryGrid.removeAttribute(
+                "aria-busy"
+            );
+
+            discoverNextBatch();
+
+        }, 150);
+
+    });
 
 }
-
 
 /* =========================================================
    11. MOBILE BODY SCROLL CONTROL
