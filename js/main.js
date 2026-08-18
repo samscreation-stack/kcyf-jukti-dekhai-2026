@@ -812,11 +812,29 @@ function initSmoothNavigation() {
    07. SCROLL REVEAL
    ========================================================= */
 
+/* =========================================================
+   07. MOBILE-SAFE SCROLL REVEAL
+   ---------------------------------------------------------
+   PERFORMANCE VERSION
+
+   Goals:
+   - Prevent white/unloaded sections
+   - Reveal content BEFORE it reaches viewport
+   - Avoid excessive IntersectionObserver work
+   - Reveal only once
+   - Give iPhone Safari more rendering time
+   - Keep existing reveal CSS/animations
+   ========================================================= */
+
 function initScrollReveal() {
 
     const revealElements =
         document.querySelectorAll(".reveal");
 
+
+    /* -----------------------------------------------------
+       SAFETY CHECK
+       ----------------------------------------------------- */
 
     if (!revealElements.length) {
         return;
@@ -824,7 +842,30 @@ function initScrollReveal() {
 
 
     /* -----------------------------------------------------
-       SAFETY FALLBACK
+       REDUCED MOTION
+       ----------------------------------------------------- */
+
+    const reduceMotion =
+        window.matchMedia &&
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+
+    if (reduceMotion) {
+
+        revealElements.forEach(element => {
+
+            element.classList.add("revealed");
+
+        });
+
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       FALLBACK
        ----------------------------------------------------- */
 
     if (!("IntersectionObserver" in window)) {
@@ -840,8 +881,31 @@ function initScrollReveal() {
 
 
     /* -----------------------------------------------------
-       OBSERVER
+       MOBILE DETECTION
        ----------------------------------------------------- */
+
+    const isMobile =
+        window.matchMedia(
+            "(max-width: 900px)"
+        ).matches;
+
+
+    /* -----------------------------------------------------
+       OBSERVER SETTINGS
+       -----------------------------------------------------
+
+       We intentionally reveal elements BEFORE they enter
+       the screen.
+
+       Mobile gets a larger preload distance because
+       iPhone Safari needs more time to render content.
+       ----------------------------------------------------- */
+
+    const rootMargin =
+        isMobile
+            ? "0px 0px 350px 0px"
+            : "0px 0px 250px 0px";
+
 
     const observer =
         new IntersectionObserver(
@@ -854,110 +918,185 @@ function initScrollReveal() {
                     }
 
 
-                    /* -----------------------------------------
-                       REVEAL ONCE
-                       ----------------------------------------- */
+                    const element =
+                        entry.target;
 
-                    entry.target.classList.add(
+
+                    /* -------------------------------------
+                       REVEAL
+                       ------------------------------------- */
+
+                    element.classList.add(
                         "revealed"
                     );
 
 
-                    /*
-                     * IMPORTANT:
-                     * Once revealed, stop observing it.
-                     *
-                     * This prevents the element from
-                     * becoming hidden again when the user
-                     * scrolls back upward.
-                     */
+                    /* -------------------------------------
+                       STOP OBSERVING
+                       ------------------------------------- */
 
                     observer.unobserve(
-                        entry.target
+                        element
                     );
 
                 });
 
             },
             {
-                /*
-                 * Start animation slightly before
-                 * the element reaches the screen.
-                 */
-
                 root: null,
 
-                rootMargin:
-                    "0px 0px -8% 0px",
+                rootMargin: rootMargin,
 
-                threshold: 0.01
+                threshold: 0
             }
         );
 
 
     /* -----------------------------------------------------
-       OBSERVE EVERYTHING
+       OBSERVE ELEMENTS
        ----------------------------------------------------- */
 
     revealElements.forEach(element => {
 
-        observer.observe(element);
+        /*
+         * If the element is already inside or close to
+         * the viewport, reveal it immediately.
+         */
+
+        const rect =
+            element.getBoundingClientRect();
+
+
+        const preloadDistance =
+            isMobile
+                ? 500
+                : 350;
+
+
+        const isNearViewport =
+            rect.top <
+                window.innerHeight +
+                preloadDistance &&
+            rect.bottom >
+                -preloadDistance;
+
+
+        if (isNearViewport) {
+
+            element.classList.add(
+                "revealed"
+            );
+
+            return;
+        }
+
+
+        observer.observe(
+            element
+        );
 
     });
 
 
     /* -----------------------------------------------------
-       SAFETY CHECK
+       SAFETY PASS
        -----------------------------------------------------
-       
-       If an element is already visible when JS
-       initializes, reveal it immediately.
-       
-       This prevents the "white until scroll"
-       problem.
-       */
 
-    requestAnimationFrame(() => {
+       Safari can occasionally delay IntersectionObserver
+       callbacks while scrolling quickly.
 
-        revealElements.forEach(element => {
+       This lightweight check catches elements that have
+       entered the preload area.
+       ----------------------------------------------------- */
 
-            if (
-                element.classList.contains(
-                    "revealed"
-                )
-            ) {
-                return;
-            }
+    let ticking = false;
 
 
-            const rect =
-                element.getBoundingClientRect();
+    function checkNearbyElements() {
+
+        if (ticking) {
+            return;
+        }
 
 
-            const visible =
-                rect.top <
-                    window.innerHeight &&
-                rect.bottom > 0;
+        ticking = true;
 
 
-            if (visible) {
+        requestAnimationFrame(() => {
 
-                element.classList.add(
-                    "revealed"
-                );
+            const preloadDistance =
+                isMobile
+                    ? 600
+                    : 400;
 
-                observer.unobserve(
-                    element
-                );
 
-            }
+            revealElements.forEach(
+                element => {
+
+                    if (
+                        element.classList.contains(
+                            "revealed"
+                        )
+                    ) {
+                        return;
+                    }
+
+
+                    const rect =
+                        element.getBoundingClientRect();
+
+
+                    if (
+                        rect.top <
+                            window.innerHeight +
+                            preloadDistance
+                    ) {
+
+                        element.classList.add(
+                            "revealed"
+                        );
+
+                        observer.unobserve(
+                            element
+                        );
+
+                    }
+
+                }
+            );
+
+
+            ticking = false;
 
         });
 
-    });
+    }
+
+
+    /* -----------------------------------------------------
+       SCROLL LISTENER
+       -----------------------------------------------------
+
+       Passive = browser can keep scrolling smoothly.
+       requestAnimationFrame prevents excessive work.
+       ----------------------------------------------------- */
+
+    window.addEventListener(
+        "scroll",
+        checkNearbyElements,
+        {
+            passive: true
+        }
+    );
+
+
+    /* -----------------------------------------------------
+       INITIAL CHECK
+       ----------------------------------------------------- */
+
+    checkNearbyElements();
 
 }
-
 /* =========================================================
    08. ACTIVE NAVIGATION
    ========================================================= */
