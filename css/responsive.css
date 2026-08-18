@@ -2052,3 +2052,239 @@
     }
 
 }
+
+/* =========================================================
+   18C. REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+
+    }
+
+}
+
+/* =========================================================
+   MOBILE NAVIGATION — FINAL FIX
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .site-header {
+        width: 100%;
+        padding: 10px 12px;
+        box-sizing: border-box;
+    }
+
+    .glass-nav {
+        width: 100%;
+        max-width: 100%;
+        min-height: 62px;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .nav-links,
+    .nav-register-btn {
+        display: none !important;
+    }
+
+    .mobile-menu-toggle {
+        display: flex !important;
+
+        width: 44px;
+        height: 44px;
+
+        padding: 0;
+
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        gap: 5px;
+
+        border: 0;
+        background: transparent;
+
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .mobile-menu-toggle span {
+        display: block;
+
+        width: 22px;
+        height: 2px;
+
+        background: var(--color-black);
+
+        border-radius: 10px;
+
+        transition: var(--transition);
+    }
+
+    /* Hamburger → X */
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+
+    /* Mobile dropdown */
+
+    .mobile-nav {
+        display: flex;
+
+        position: fixed;
+
+        top: 82px;
+        left: 12px;
+        right: 12px;
+
+        width: auto;
+        max-height: calc(100vh - 100px);
+
+        padding: 20px;
+
+        flex-direction: column;
+        gap: 6px;
+
+        overflow-y: auto;
+
+        background: rgba(255,255,255,0.96);
+
+        border: 1px solid rgba(0,0,0,0.08);
+
+        border-radius: 24px;
+
+        box-shadow:
+            0 20px 60px rgba(0,0,0,0.15);
+
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        opacity: 0;
+        visibility: hidden;
+
+        transform: translateY(-12px);
+
+        pointer-events: none;
+
+        transition:
+            opacity 0.3s ease,
+            transform 0.3s ease,
+            visibility 0.3s ease;
+
+        z-index: 999;
+    }
+
+
+    .mobile-nav.active {
+        opacity: 1;
+        visibility: visible;
+
+        transform: translateY(0);
+
+        pointer-events: auto;
+    }
+
+
+    .mobile-nav a {
+        display: flex;
+
+        align-items: center;
+
+        min-height: 48px;
+
+        padding: 0 16px;
+
+        border-radius: 14px;
+
+        color: var(--color-black);
+
+        font-size: 14px;
+        font-weight: 600;
+
+        text-decoration: none;
+
+        transition:
+            background 0.2s ease,
+            color 0.2s ease;
+    }
+
+
+    .mobile-nav a:hover {
+        background: rgba(32,173,212,0.10);
+        color: var(--color-primary);
+    }
+
+
+    .mobile-nav .mobile-register-btn {
+        margin-top: 8px;
+
+        justify-content: center;
+
+        background: var(--color-black);
+        color: var(--color-white);
+    }
+
+}
+
+/* =========================================================
+   MOBILE GRID SAFETY
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .categories-grid,
+    .gallery-grid,
+    .judges-grid,
+    .winners-grid,
+    .sponsors-grid,
+    .prizes-grid,
+    .process-grid {
+        width: 100%;
+        max-width: 100%;
+        grid-template-columns: 1fr;
+    }
+
+
+    .category-card,
+    .judge-card,
+    .winner-card,
+    .prize-card,
+    .process-card,
+    .sponsor-card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+
+    .section-container,
+    .container,
+    .section-inner {
+        width: 100%;
+        max-width: 100%;
+    }
+
+}
+
