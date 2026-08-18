@@ -10068,3 +10068,70 @@ html {
     }
 
 }
+
+
+
+
+
+/* =========================================================
+   iOS PERFORMANCE TEST
+   TEMPORARY DIAGNOSTIC MODE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    /* Never hide content waiting for JS */
+    .reveal,
+    .reveal.revealed {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+
+    /* Reduce expensive visual effects */
+    .glass-nav,
+    .mobile-nav,
+    .hero-logo-platform,
+    .hero-logo-frame,
+    .hero-orbit,
+    .hero-glow,
+    [class*="glass"],
+    [class*="blur"] {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+}
+/* =========================================================
+   KCYF — iOS DIAGNOSTIC MODE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    /* 1. Force all sections to remain visible */
+    .reveal,
+    .reveal.revealed {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+
+    /* 2. Disable expensive blur effects */
+    .glass-nav,
+    .mobile-nav,
+    .hero-logo-platform,
+    .hero-logo-frame {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* 3. Disable decorative animated glows */
+    .hero-glow {
+        animation: none !important;
+    }
+
+}
