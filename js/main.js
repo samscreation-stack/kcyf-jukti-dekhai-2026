@@ -815,9 +815,7 @@ function initSmoothNavigation() {
 function initScrollReveal() {
 
     const revealElements =
-        document.querySelectorAll(
-            ".reveal"
-        );
+        document.querySelectorAll(".reveal");
 
 
     if (!revealElements.length) {
@@ -825,70 +823,140 @@ function initScrollReveal() {
     }
 
 
-    if (
-        !("IntersectionObserver" in window)
-    ) {
+    /* -----------------------------------------------------
+       SAFETY FALLBACK
+       ----------------------------------------------------- */
 
-        revealElements.forEach(
-            element => {
+    if (!("IntersectionObserver" in window)) {
 
-                element.classList.add(
-                    "revealed"
-                );
+        revealElements.forEach(element => {
 
-            }
-        );
+            element.classList.add("revealed");
+
+        });
 
         return;
-
     }
 
+
+    /* -----------------------------------------------------
+       OBSERVER
+       ----------------------------------------------------- */
 
     const observer =
         new IntersectionObserver(
             entries => {
 
-                entries.forEach(
-                    entry => {
+                entries.forEach(entry => {
 
-                        if (
-                            !entry.isIntersecting
-                        ) {
-                            return;
-                        }
-
-
-                        entry.target.classList.add(
-                            "revealed"
-                        );
-
-
-                        observer.unobserve(
-                            entry.target
-                        );
-
+                    if (!entry.isIntersecting) {
+                        return;
                     }
-                );
+
+
+                    /* -----------------------------------------
+                       REVEAL ONCE
+                       ----------------------------------------- */
+
+                    entry.target.classList.add(
+                        "revealed"
+                    );
+
+
+                    /*
+                     * IMPORTANT:
+                     * Once revealed, stop observing it.
+                     *
+                     * This prevents the element from
+                     * becoming hidden again when the user
+                     * scrolls back upward.
+                     */
+
+                    observer.unobserve(
+                        entry.target
+                    );
+
+                });
 
             },
             {
-                threshold: 0.12
+                /*
+                 * Start animation slightly before
+                 * the element reaches the screen.
+                 */
+
+                root: null,
+
+                rootMargin:
+                    "0px 0px -8% 0px",
+
+                threshold: 0.01
             }
         );
 
 
-    revealElements.forEach(
-        element => {
+    /* -----------------------------------------------------
+       OBSERVE EVERYTHING
+       ----------------------------------------------------- */
 
-            observer.observe(
-                element
-            );
+    revealElements.forEach(element => {
 
-        }
-    );
+        observer.observe(element);
+
+    });
+
+
+    /* -----------------------------------------------------
+       SAFETY CHECK
+       -----------------------------------------------------
+       
+       If an element is already visible when JS
+       initializes, reveal it immediately.
+       
+       This prevents the "white until scroll"
+       problem.
+       */
+
+    requestAnimationFrame(() => {
+
+        revealElements.forEach(element => {
+
+            if (
+                element.classList.contains(
+                    "revealed"
+                )
+            ) {
+                return;
+            }
+
+
+            const rect =
+                element.getBoundingClientRect();
+
+
+            const visible =
+                rect.top <
+                    window.innerHeight &&
+                rect.bottom > 0;
+
+
+            if (visible) {
+
+                element.classList.add(
+                    "revealed"
+                );
+
+                observer.unobserve(
+                    element
+                );
+
+            }
+
+        });
+
+    });
 
 }
-
 
 /* =========================================================
    08. ACTIVE NAVIGATION
